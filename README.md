@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# Infocash
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O projeto **Infocash** é uma aplicação web desenvolvida para auxiliar os usuários no gerenciamento de suas finanças, promovendo maior controle e organização financeira. Através da aplicação, é possível registrar entradas e saídas de dinheiro, visualizar relatórios e obter insights sobre hábitos de consumo.
 
-## Available Scripts
+## Funcionalidades
 
-In the project directory, you can run:
+- **Cadastro de Salários**: Registro das fontes de renda mensal.
+- **Registro de Gastos Mensais**: Inclusão de despesas fixas, como contas de serviços, aluguel e outras obrigações recorrentes.
+- **Registro de Gastos Diários**: Controle de despesas variáveis realizadas diariamente.
+- **Relatórios e Gráficos**: Apresentação visual e analítica dos dados financeiros para melhor compreensão e planejamento.
 
-### `npm start`
+## Tecnologias Utilizadas
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Front-end**: React
+- **Back-end**:
+- **Banco de Dados**:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Instruções para Configuração e Execução
 
-### `npm test`
+1. **Clone o repositório**:  
+   Utilize o comando abaixo para clonar o projeto:
+   ```bash
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Instale as dependências**:  
+   No diretório do projeto, execute:
+   ```bash
+   npm install
+   ```
+   ou o comando equivalente conforme a tecnologia utilizada.
 
-### `npm run build`
+3. **Inicie o servidor**:  
+   Execute o comando para iniciar a aplicação:
+   ```bash
+   npm start
+   ```
+   ou o equivalente à configuração do projeto.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Acesse a aplicação**:  
+   No navegador, insira o endereço:
+   ```
+   http://localhost:3000
+   ```
+   ou outra porta especificada.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contribuição
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Contribuições para este projeto são sempre bem-vindas. Caso deseje colaborar, siga as etapas abaixo:
 
-### `npm run eject`
+1. Faça um fork do repositório.
+2. Crie uma nova branch para sua contribuição:
+   ```bash
+   git checkout -b minha-feature
+   ```
+3. Realize as alterações necessárias e faça commit:
+   ```bash
+   git commit -m "Descrição clara da alteração"
+   ```
+4. Envie suas alterações para o repositório remoto:
+   ```bash
+   git push origin minha-feature
+   ```
+5. Abra um **Pull Request** explicando as mudanças realizadas.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Créditos
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Desenvolvedores**: Pedro Henrique,   
+**Contato**: [impedrohenri](linktr.ee/impedrohenri)
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
