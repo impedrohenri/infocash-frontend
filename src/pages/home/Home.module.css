@@ -1,4 +1,41 @@
-.text{
-    text-align: center;
-    margin-top: 40vh;
+.upperBody {
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: auto;
+    /* border: 1px solid red; */
+    width: 95vw;
+}
+
+.mainValues {
+    /* border: 1px solid red; */
+    justify-content: space-between;
+    height: min-content;
+}
+
+.primaryValue {
+    width: 100%;
+}
+
+.secundaryValue {
+    width: 49%;
+}
+
+
+.cardGrafico {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid red; */
+}
+
+
+.history{
+    /* border: 1px solid red; */
+    width: 95vw;
+    flex-wrap: wrap;
+    
+    h2{
+        width: 100%;
+        padding-left: 20px;
+        padding-top: 30px;
+    }
 }

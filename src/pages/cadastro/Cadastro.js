@@ -1,5 +1,4 @@
 import CadastroForm from '../../components/forms/cadastroForm/CadastroForm'
-import Header from '../../components/header/Header'
 import LOGO from '../../img/vasalirelsol.png'
 import styles from  './Cadastro.module.css'
 

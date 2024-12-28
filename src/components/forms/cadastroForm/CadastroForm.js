@@ -12,7 +12,7 @@ export default function CadastroForm(props) {
 
     return (
         <>
-            <div className={`col-11 col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 col-xxl-2 mx-auto ${styles.cadForm}`}>
+            <div className={`col-11 col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 mx-auto ${styles.cadForm}`}>
                 <h2 className='text-center mb-4'>Cadastre-se</h2>
                 <form >
                     

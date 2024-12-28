@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 export default function LoginForm() {
     return (
         <>
-        <div className={`col-11 col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 col-xxl-2 mx-auto ${styles.loginForm}`}>
+        <div className={`col-11 col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 mx-auto ${styles.loginForm}`}>
                 <h2 className='text-center mb-4'>Fazer login</h2>
                 <form>
                     

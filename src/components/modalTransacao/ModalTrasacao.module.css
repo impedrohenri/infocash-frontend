@@ -1,0 +1,33 @@
+.botaoDiv {
+    margin-top: 50px;
+}
+
+
+.modalBody::-webkit-scrollbar-thumb {
+    background-color: rgb(190, 190, 190);
+    border: 4px solid transparent;
+    border-radius: 15px;
+    background-clip: content-box;
+}
+
+.modalBody::-webkit-scrollbar {
+    width: 16px;
+}
+
+
+.divRadios {
+    background-color: rgb(230, 230, 230);
+    padding: 10px;
+    border-radius: 15px;
+
+}
+
+.periodo {
+    margin-top: 20px;
+}
+
+.periodos {
+    background-color: rgb(255, 255, 255);
+    padding-inline: 20px;
+    border-radius: 20px;
+}
