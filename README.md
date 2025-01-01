@@ -67,6 +67,5 @@ Contribuições para este projeto são sempre bem-vindas. Caso deseje colaborar,
 
 ## Créditos
 
-**Desenvolvedores**: Pedro Henrique,   
-**Contato**: [impedrohenri](linktr.ee/impedrohenri)
+**Desenvolvedores**: [Pedro Henrique](https://linktr.ee/impedrohenri), Vinicius Batista e Luiz Felipe
 

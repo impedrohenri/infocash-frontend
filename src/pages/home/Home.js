@@ -1,6 +1,6 @@
 import styles from './Home.module.css'
 import Header from "../../components/header/Header";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
 import HistoryCard from '../../components/historyCard/HistoryCard';
@@ -11,6 +11,21 @@ export default function Home() {
   const [totalSaldo, setTotalSaldo] = useState(0);
   const [totalEntrada, setTotalEntrada] = useState(0);
   const [totalSaida, setTotalSaida] = useState(0);
+  const [respostaAPI, setRespostaAPI] = useState([])
+
+  useEffect(() => {
+    fetch(`URL_DA_API`)
+      .then(
+        resposta => { return resposta.json() }
+      )
+      .then(
+        res => {
+          setRespostaAPI(res)
+          console.log(res)
+        }
+      )
+      .catch(err => console.log(err))
+  }, [])
 
 
   return (
@@ -42,30 +57,16 @@ export default function Home() {
           </div>
 
           <ModalTrasacao />
-          
         </div>
 
         <GraficoMeta />
 
       </div>
 
-
-
       <div>
-        
         <div className={`d-flex mx-auto mt-3 px-1 ${styles.history}`}>
           <h2 className=''>Registros</h2>
-
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-          <HistoryCard />
-
-
+          {respostaAPI.map(operacao => <HistoryCard instancia={operacao} />)}
         </div>
       </div>
     </>

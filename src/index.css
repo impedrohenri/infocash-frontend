@@ -12,3 +12,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+    --mColor-lightest: #E9F7EA;
+    --mColor-light: #C4E3CC;
+    --mColor-medium: #81C785;
+    --mColor-deep: #4CAF50;
+    --mColor-bright: #2E7D32;
+}
+input:focus, select:focus{
+  border-color: var(--mColor-bright) !important;
+  box-shadow: 0 0 0px 4px var(--mColor-lightest) !important;
+}

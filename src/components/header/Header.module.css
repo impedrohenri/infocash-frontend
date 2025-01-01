@@ -3,3 +3,7 @@
     height: 30px;
     border-radius: 3px;
 }
+
+.navbar{
+    background-color: var(--mColor-bright) !important;
+}

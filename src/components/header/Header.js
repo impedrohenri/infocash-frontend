@@ -5,7 +5,7 @@ import LOGO from '../../img/vasalirelsol.png';
 export default function Header(props) {
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <nav className={`navbar navbar-expand-lg bg-body-tertiary ${styles.navbar}`} data-bs-theme="dark">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
           <img src={LOGO} alt="Logo" width="30" height="30" className={`align-text-top me-2 ${styles.logoHeader}`} />
