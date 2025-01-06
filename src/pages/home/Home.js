@@ -12,9 +12,10 @@ export default function Home() {
   const [totalEntrada, setTotalEntrada] = useState(0);
   const [totalSaida, setTotalSaida] = useState(0);
   const [respostaAPI, setRespostaAPI] = useState([])
+  const [reloadAPI, setReloadAPI] = useState(false)
 
   useEffect(() => {
-    fetch(`URL_DA_API`)
+    fetch('URL_DA_API')
       .then(
         resposta => { return resposta.json() }
       )
@@ -22,12 +23,25 @@ export default function Home() {
         res => {
           setRespostaAPI(res)
           console.log(res)
+
+          const entrada = res
+            .filter(operacao => operacao.tipoOperacao === 'entrada')
+            .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
+
+          const saida = res
+            .filter(operacao => operacao.tipoOperacao === 'saida')
+            .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
+
+          
+          setTotalEntrada(entrada);
+          setTotalSaida(saida);
+          setTotalSaldo(entrada - saida);
         }
       )
       .catch(err => console.log(err))
-  }, [])
+  }, [reloadAPI])
 
-
+  
   return (
     <>
       <Header />
@@ -56,17 +70,19 @@ export default function Home() {
             </div>
           </div>
 
-          <ModalTrasacao />
+          <ModalTrasacao reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} />
         </div>
 
-        <GraficoMeta />
+        <GraficoMeta respostaAPI={respostaAPI}/>
 
       </div>
 
-      <div>
-        <div className={`d-flex mx-auto mt-3 px-1 ${styles.history}`}>
-          <h2 className=''>Registros</h2>
+      <div className={` ${styles.history_container}`}>
+        <h2 className='p-4'>Registros</h2>
+        <div className={`d-flex ${styles.history}`}>
+
           {respostaAPI.map(operacao => <HistoryCard instancia={operacao} />)}
+
         </div>
       </div>
     </>

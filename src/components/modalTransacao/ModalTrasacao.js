@@ -1,13 +1,12 @@
 import Input from '../forms/input/Input'
 import styles from './ModalTrasacao.module.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 
-export default function ModalTrasacao({ onEdit }) {
+
+export default function ModalTrasacao({ setReloadAPI, reloadAPI }) {
 
 	const [recorrencia, setRecorrencia] = useState('unica');
-	const [buttonEntrada, setButtonEntrada] = useState('outline-')
-	const [buttonSaida, setButtonSaida] = useState('outline-')
 	const [selectedCategoria, setSealectedCategoria] = useState('')
 
 
@@ -29,7 +28,6 @@ export default function ModalTrasacao({ onEdit }) {
 
 		const formData = new FormData(formulario)
 		const data = Object.fromEntries(formData)
-
 		console.log(data)
 
 		fetch('URL_DA_API', {
@@ -39,15 +37,16 @@ export default function ModalTrasacao({ onEdit }) {
 			},
 			body: JSON.stringify(data)
 		})
-			.then(res => res.json())
-			.then(data => console.log(data))
+			.then(formulario.reset(),
+				setReloadAPI(!reloadAPI)
+			)
 	}
 
 	return (
 		<>
 			<div className={`ms-4 mt-4`}>
 				<button type="button" className={`btn btn-secondary btn-lg ${styles.botaoDiv}`} data-bs-toggle="modal" data-bs-target="#modalTransacao">
-					+ Transação
+					+ Operação
 				</button>
 			</div>
 
@@ -57,7 +56,7 @@ export default function ModalTrasacao({ onEdit }) {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h1 className="modal-title fs-5" id="modalLabel">Adicionar Operação</h1>
-							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<input type="reset" className="btn btn-close" data-bs-dismiss="modal" aria-label="close" value=' ' />
 						</div>
 
 						{/* FORMULÁRIO DE TRANSAÇÃO */}
@@ -65,21 +64,20 @@ export default function ModalTrasacao({ onEdit }) {
 
 							{/* Tipo de operação */}
 							<div className='d-flex justify-content-around mb-4 mt-2'>
-								<div>
-									<label className={`btn btn-${buttonEntrada}success px-3`} htmlFor='operacaoEntrada'>Entrada</label>
-									<input type='radio' className='invisible' name='tipoOperacao' id='operacaoEntrada' value='entrada' onChange={() => { setButtonEntrada(''); setButtonSaida('outline-') }} />
-								</div>
-								<div>
-									<label className={`btn btn-${buttonSaida}danger px-4`} htmlFor='operacaoSaida'>Saída</label>
-									<input type='radio' className='invisible' name='tipoOperacao' id='operacaoSaida' value='saida' onChange={() => { setButtonSaida(''); setButtonEntrada('outline-') }} />
-								</div>
+								<label className={`${styles.tipoOperacao}`} htmlFor='operacaoEntrada'>Entrada
+									<input type='radio' className='' name='tipoOperacao' id='operacaoEntrada' value='entrada' required />
+								</label>
+
+								<label className={`${styles.tipoOperacao}`} htmlFor='operacaoSaida'>Saída
+									<input type='radio' className='' name='tipoOperacao' id='operacaoSaida' value='saida' required />
+								</label>
 							</div>
 
 							{/* Título da operação */}
 							<Input type='text' name='titulo' label='Título' placeholder='Título da operação' required='required' />
 
 							{/* Valor da operação */}
-							<Input type='number' name='valor' label='Valor' placeholder='R$ 0.000,00' min="0" />
+							<Input type='number' name='valor' label='Valor' placeholder='R$ 0.000,00' min="0" step="0.01" />
 
 							{/* Categorias da operação */}
 							<label htmlFor="selectCategoria">Categoria</label>
@@ -118,21 +116,11 @@ export default function ModalTrasacao({ onEdit }) {
 
 								{recorrencia === 'recorrente' && (
 									<div className={`${styles.periodos_container}`}>
-										<label className={`${styles.periodos}`} htmlFor="semanal">
-											<input type="radio" name="periodoRecorrencia" id="semanal" value='semanal' /> Semanal
-										</label>
-										<label className={`${styles.periodos}`} htmlFor="quinzenal">
-											<input type="radio" name="periodoRecorrencia" id="quinzenal" value='quinzenal' /> Quinzenal
-										</label>
-										<label className={`${styles.periodos}`} htmlFor="mensal">
-											<input type="radio" name="periodoRecorrencia" id="mensal" value='mensal' /> Mensal
-										</label>
-										<label className={`${styles.periodos}`} htmlFor="semestral">
-											<input type="radio" name="periodoRecorrencia" id="semestral" value='semestral' /> Semestral
-										</label>
-										<label className={`${styles.periodos}`} htmlFor="anual">
-											<input type="radio" name="periodoRecorrencia" id="anual" value='anual' /> Anual
-										</label>
+										{["Semanal", "Quinzenal", "Mensal", "Semestral", "Anual"].map(periodo => (
+											<label className={`${styles.periodos}`} htmlFor={periodo}>
+												<input type="radio" name="periodoRecorrencia" id={periodo} value={periodo} /> {periodo}
+											</label>
+										))}
 									</div>
 								)}
 							</div>

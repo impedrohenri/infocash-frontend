@@ -2,12 +2,10 @@
     display: flex;
     flex-wrap: wrap;
     margin-inline: auto;
-    /* border: 1px solid red; */
     width: 95vw;
 }
 
 .mainValues {
-    /* border: 1px solid red; */
     justify-content: space-between;
     height: min-content;
 }
@@ -24,18 +22,13 @@
 .cardGrafico {
     display: flex;
     flex-direction: column;
-    /* border: 1px solid red; */
 }
 
-
+.history_container{
+    width: 92vw;
+    margin-inline: auto;
+}
 .history{
-    /* border: 1px solid red; */
-    width: 95vw;
     flex-wrap: wrap;
-    
-    h2{
-        width: 100%;
-        padding-left: 20px;
-        padding-top: 30px;
-    }
+
 }

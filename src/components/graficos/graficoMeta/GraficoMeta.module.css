@@ -21,4 +21,5 @@
     margin-inline: auto;
     position: relative;
     width: 100%;
+    min-height: 250px;
 }

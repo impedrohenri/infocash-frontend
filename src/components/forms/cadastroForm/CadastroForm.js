@@ -16,15 +16,15 @@ export default function CadastroForm(props) {
                 <h2 className='text-center mb-4'>Cadastre-se</h2>
                 <form >
                     
-                    <Input type='name' id='nomeCadastro' label='Nome'/>
-                    <Input type='email' id='emailCadastro' label='E-mail'/>
-                    <Input type='password' id='senhaCadastro' label='Senha'/>
-                    <Input type='password' id='confSenhaCadastro' label='Confirmar senha'/>
+                    <Input type='name' id='nomeCadastro' label='Nome' placeholder="Digite seu nome"/>
+                    <Input type='email' id='emailCadastro' label='E-mail' placeholder="Digite seu e-mail"/>
+                    <Input type='password' id='senhaCadastro' label='Senha' placeholder="Crie uma senha"/>
+                    <Input type='password' id='confSenhaCadastro' label='Confirmar senha' placeholder="Confirme a senha"/>
 
                     <div className='d-flex justify-content-between'>
                     <Link to='/'><SubmitButton value='Cadastrar'/></Link>
                         
-                        <input type='reset' value='Redefinir' className='btn btn-outline-secondary mt-4 '/>
+                        <input type='reset' className='btn btn-outline-secondary mt-4 '/>
                     </div>
                 </form>
             </div>

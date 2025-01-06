@@ -13,8 +13,8 @@ export default function LoginForm() {
                 <form>
                     
         
-                    <Input type='email' id='emailLogin' label='E-mail'/>
-                    <Input type='password' id='senhaLogin' label='Senha'/>
+                    <Input type='email' id='emailLogin' label='E-mail' placeholder="Digite seu e-mail"/>
+                    <Input type='password' id='senhaLogin' label='Senha' placeholder="Digite sua senha"/>
 
                     <div className='d-flex justify-content-center'>
                         <Link to='/'> <SubmitButton className='px-4' value='Entrar'/></Link>
