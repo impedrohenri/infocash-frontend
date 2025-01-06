@@ -1,15 +1,18 @@
+
 import styles from './Header.module.css';
 import { Link } from 'react-router-dom';
-import LOGO from '../../img/vasalirelsol.png';
+import LOGO from '../../img/infocash-brand/png/infocash-logo-white.png';
+import NAME from '../../img/infocash-brand/png/infocash-name-white.png';
 
 export default function Header(props) {
 
   return (
     <nav className={`navbar navbar-expand-lg bg-body-tertiary ${styles.navbar}`} data-bs-theme="dark">
       <div className="container-fluid">
-        <Link to="/" className="navbar-brand">
-          <img src={LOGO} alt="Logo" width="30" height="30" className={`align-text-top me-2 ${styles.logoHeader}`} />
-          Vinanças
+        <Link to="/" className="navbar-brand d-flex ">
+        <img src={LOGO} alt="Logo" width="30" height="30" className="align-text-top mx-2" />
+        <img src={NAME} alt="Logo" height="20" className='align-text-top me-2 my-auto' />
+          
         </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
