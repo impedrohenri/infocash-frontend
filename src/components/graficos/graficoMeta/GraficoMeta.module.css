@@ -1,9 +1,22 @@
 .cardGrafico {
     display: flex;
-    flex-direction: column;
+    row-gap: 30px;
+}
+.title{
+    box-shadow: 0 3px 20px -20px rgb(59, 59, 59);
+    height: fit-content;
+    padding: 15px 20px 15px 20px;
+    div{
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
     
 }
-
+.card_Body{
+    flex-wrap: wrap;
+    padding-top: 0px;
+}
 
 .doughnutGrafico {
     margin-inline: auto;
@@ -11,15 +24,29 @@
     height: 40vh;
   }
 
-.cardBoard{
-
-}
 
 .canvaDiv{
     display: flex;
     justify-content: space-evenly;
     margin-inline: auto;
     position: relative;
-    width: 100%;
     min-height: 250px;
+}
+.limit_container{
+    min-height: 250px;
+    border-top: 1px solid rgb(225, 225, 225);
+    padding: 30px 10px 0 10px;
+    margin: 10px 0 0 0;
+}
+
+.limite_mensal{
+    word-wrap: unset;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    span{
+        font-size: 25px;
+        font-weight: 600;
+    }
 }

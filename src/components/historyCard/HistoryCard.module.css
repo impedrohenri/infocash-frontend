@@ -1,0 +1,68 @@
+.card_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card_header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.card_header .tipo_operacao {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.card_header .tipo_operacao.entrada {
+  background-color: #4caf50;
+}
+
+.card_header .tipo_operacao.saida {
+  background-color: #f44336;
+}
+
+.card_title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.card_body {
+  font-size: 0.875rem;
+  color: #555;
+}
+
+.valor{
+  display: block;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 8px 0;
+  color: #333;
+  margin-left: auto;
+}
+
+.card_body p {
+  margin: 4px 0;
+}
+
+.card_body strong {
+  color: #333;
+}

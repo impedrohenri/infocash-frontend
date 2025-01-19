@@ -1,12 +1,18 @@
 import styles from './GraficoMeta.module.css';
 import Chart from 'chart.js/auto';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Popover from '../../popover/Popover';
 
 
-export default function GraficoMeta(props) {    
+
+export default function GraficoMeta(props) {
+
+  const [limiteMensal, setLimiteMensal] = useState(0)
+  const [limiteRestante, setLimiteRestante] = useState(0)
 
 
   useEffect(() => {
+    // Filtra as categorias que possuem operações cadastradas
     const categoriasSaida = [
       ...new Set(
         props.respostaAPI
@@ -15,39 +21,50 @@ export default function GraficoMeta(props) {
       )
     ];
 
-      const dadosGrafico = (resJSON, categorias) => {
-        let data = [];
-      
-        for(let cat of categorias){
-          let lista = []
-          resJSON.forEach(operacao => (operacao.categoria === cat) && (operacao.tipoOperacao === "saida") && lista.push(parseInt(operacao.valor)));
-          data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0))    
-        };
-        
-        return data;
-      }
+    // Soma os gasto
+    const dadosGrafico = (resJSON, categorias) => {
+      let data = [];
+
+      for (let cat of categorias) {
+        let lista = []
+        resJSON.forEach(operacao => (operacao.categoria === cat) && (operacao.tipoOperacao === "saida") && lista.push(parseInt(operacao.valor)));
+        data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0))
+      };
+
+      return data;
+    }
+
+    const calcularLimiteRestante = (dados, limite) => {
+      const totalGasto = dados.reduce((acc, valor) => parseFloat(acc + valor), 0);
+      return Math.max(0, parseFloat(limite - totalGasto)); // Garantir que o valor não seja negativo
+    };
+
+
     const ctx = document.getElementById('grafico');
     if (Chart.getChart('grafico')) Chart.getChart('grafico').destroy();
+
+    const dadosCategorias = dadosGrafico(props.respostaAPI, categoriasSaida);
+    setLimiteRestante(calcularLimiteRestante(dadosCategorias, limiteMensal));
 
     new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: categoriasSaida,
+        labels: ['Limite Restante', ...categoriasSaida ],
         datasets: [
           {
             label: 'R$',
-            data: dadosGrafico(props.respostaAPI, categoriasSaida),
+            data: [limiteRestante, ...dadosCategorias],
             backgroundColor: [
+              'rgb(150, 150, 150)', // Cor para "Limite Restante"
               'rgb(66, 133, 244)',
               'rgb(219, 68, 55)',
               'rgb(244, 180, 0)',
               'rgb(15, 157, 88)',
               'rgb(171, 71, 188)',
               'rgb(255, 112, 67)',
-              'rgb(0, 172, 193)',
-              
-              'rgb(240, 240, 240)'
+              'rgb(0, 172, 193)'
 
+              
             ],
             hoverOffset: 10
           }
@@ -67,30 +84,112 @@ export default function GraficoMeta(props) {
           }
         },
         layout: {
-            autoPadding: true
-            
+          autoPadding: true
+
         }
       }
     });
 
-  }, [props.respostaAPI]);
+    // PROGRESS BAR (LIMITE E GASTO)
+
+    const progressCtx = document.getElementById('progressBar');
+    if (Chart.getChart('progressBar')) Chart.getChart('progressBar').destroy();
+
+    new Chart(progressCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Gastos vs Limite'],
+        datasets: [
+          {
+            label: 'Gasto',
+            data: [dadosCategorias.reduce((acc, val) => acc + val, 0)],
+            backgroundColor: 'rgb(219, 68, 55)',
+            barThickness: 25,
+          },
+          {
+            label: 'Limite Restante',
+            data: [limiteRestante],
+            backgroundColor: 'rgb(15, 157, 88)',
+            barThickness: 25,
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: ''
+        },
+          legend: {
+            position: 'bottom',
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              display: false // Desativa os números no eixo x
+            },
+            stacked: true,
+            grid: {
+              drawBorder: false,
+              display: false
+            },
+            border: {
+              display: false // Remove a linha da borda do eixo Y
+            }
+          },
+          y: {
+            ticks: {
+              display: false // Desativa os números no eixo x
+            },
+            stacked: true,
+            grid: {
+              drawBorder: false,
+              display: false
+            },
+            border: {
+              display: false // Remove a linha da borda do eixo Y
+              }
+          }
+        }
+      }
+    });
+
+  }, [props.respostaAPI, limiteMensal, limiteRestante]);
 
   return (
-    <div className={`col-11 col-md-5  row m-3 mx-auto ${styles.cardGrafico}`}>
-      <div className={`card ${styles.cardBoard}`}>
-        <div className={`card-body `}>
-          <h5 className="card-title">Limite Mensal</h5>
-          <div className={`${styles.canvaDiv}`}>
-            
-            {props.respostaAPI.length !== 0 &&
-            (<canvas className={`${styles.doughnutGrafico}`} id="grafico"></canvas>)}
-          </div>
+    <div className={`card col-11 col-md-6  row m-3 mx-auto ${styles.cardGrafico}`}>
+      <div className={`d-flex justify-content-between ${styles.title}`}>
+        <h5 className='m-0'>Limite Mensal</h5>
+        <div className='d-flex'>
+          <h4 className='m-0'>R$ {limiteMensal}</h4>
+          <Popover setLimiteMensal={setLimiteMensal}/>
+
+
         </div>
       </div>
+
+      <div className={`card-body d-flex ${styles.card_Body}`}>
+        <div className={`col-12 col-md-7 ${styles.canvaDiv}`}>
+          {props.respostaAPI.length !== 0 &&
+            (<canvas className={`${styles.doughnutGrafico}`} id="grafico"></canvas>)}
+        </div>
+
+        <div className={`col-12 col-md-5 ${styles.limit_container}`}>
+          <div className={`${styles.limite_mensal}`}>
+            <span>Limite restante: </span>
+            <span>R$ {limiteRestante}</span>
+          </div>
+          <canvas id="progressBar" className={`${styles.progressBar}`}></canvas>
+        </div>
+      </div>
+
     </div>
-    
-    
+
+
   );
 
-  
+
 }

@@ -5,9 +5,9 @@ import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
 import HistoryCard from '../../components/historyCard/HistoryCard';
 
-
 export default function Home() {
 
+  const URL_API = 'https://crudcrud.com/api/c1171879150141499b3e41bef98a6e92/transacao'
   const [totalSaldo, setTotalSaldo] = useState(0);
   const [totalEntrada, setTotalEntrada] = useState(0);
   const [totalSaida, setTotalSaida] = useState(0);
@@ -15,7 +15,7 @@ export default function Home() {
   const [reloadAPI, setReloadAPI] = useState(false)
 
   useEffect(() => {
-    fetch('URL_DA_API')
+    fetch(URL_API)
       .then(
         resposta => { return resposta.json() }
       )
@@ -47,8 +47,7 @@ export default function Home() {
       <Header />
       <div className={`mt-4 ${styles.upperBody}`}>
 
-        <div className={`col-11 col-md-6 row m-3 mx-auto ${styles.mainValues} `}>
-
+        <div className={`col-11 col-md-5 row m-3 mx-auto ${styles.mainValues} `}>
           <div className={`card mb-2 text-center ${styles.primaryValue}`}>
             <div className="card-body">
               <h3 className="card-title">Saldo total</h3>
@@ -70,19 +69,16 @@ export default function Home() {
             </div>
           </div>
 
-          <ModalTrasacao reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} />
+          <ModalTrasacao URL_API={URL_API} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} />
         </div>
 
         <GraficoMeta respostaAPI={respostaAPI}/>
-
       </div>
 
       <div className={` ${styles.history_container}`}>
         <h2 className='p-4'>Registros</h2>
         <div className={`d-flex ${styles.history}`}>
-
-          {respostaAPI.map(operacao => <HistoryCard instancia={operacao} />)}
-
+          {respostaAPI.map(operacao => <HistoryCard operacao={operacao} />)}
         </div>
       </div>
     </>

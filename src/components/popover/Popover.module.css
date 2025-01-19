@@ -1,0 +1,57 @@
+.botao{
+    display: flex;
+    align-items: center;
+    background-color: rgb(0, 0, 0, 0) ;
+    border: none;
+    background-color: none;
+    padding: 0px;
+    margin: 0 10px 0 20px;
+    height: fit-content;
+    
+    img{
+        height: 30px;
+        width: 32px;
+        transition: 200ms;
+    }
+}
+.botao:hover{
+    background-color: rgb(0, 0, 0, 0.1);
+    img{
+        scale: 120%;
+    }
+}
+.botao:active{
+
+    background-color: rgb(0, 0, 0, 0) !important;
+    img{
+        scale: 100%;
+    }
+}
+
+.overlay{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--mColor-light);
+    border-radius: 7px;
+    --bs-tooltip-bg: var(--mColor-lightest);
+    --bs-tooltip-opacity: 1;
+    font-size: 17px;
+    --bs-tooltip-max-width: 70vw;
+    --bs-tooltip-color: rgb(160, 160, 160);
+    --bs-tooltip-min-height: 300px;
+    --bs-tooltip-padding-x: 20px;
+    --bs-tooltip-padding-y: 10px;
+    span{
+        
+        color: var(--mColor-bright);
+    }
+    button{
+        border: 1px solid var(--mColor-deep);
+        background-color: var(--mColor-light);
+        color: var(--mColor-bright);
+    }
+    button:hover{
+        background-color: var(--mColor-deep);
+        color: var(--mColor-lightest);
+    }
+}

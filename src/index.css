@@ -14,11 +14,11 @@ code {
 }
 
 :root {
-    --mColor-lightest: #E9F7EA;
-    --mColor-light: #C4E3CC;
-    --mColor-medium: #81C785;
-    --mColor-deep: #4CAF50;
-    --mColor-bright: #2E7D32;
+  --mColor-lightest: #F3E5F5 !important;   /* Roxo bem claro, ideal para fundos */
+  --mColor-light: #E1BEE7 !important;     /* Roxo claro, perfeito para áreas secundárias */
+  --mColor-medium: #CE93D8 !important;    /* Roxo médio, usado para botões ou elementos de destaque */
+  --mColor-deep: #9C27B0 !important;      /* Roxo vibrante, ideal para chamadas de ação */
+  --mColor-bright: #7B1FA2 !important;    /* Roxo intenso, para contrastes principais */
 }
 input:focus, select:focus{
   border-color: var(--mColor-bright) !important;
