@@ -1,13 +1,12 @@
 import styles from './Home.module.css'
 import Header from "../../components/header/Header";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
 import HistoryCard from '../../components/historyCard/HistoryCard';
 
 export default function Home() {
 
-  const URL_API = 'https://crudcrud.com/api/c1171879150141499b3e41bef98a6e92/transacao'
   const [totalSaldo, setTotalSaldo] = useState(0);
   const [totalEntrada, setTotalEntrada] = useState(0);
   const [totalSaida, setTotalSaida] = useState(0);
@@ -15,7 +14,7 @@ export default function Home() {
   const [reloadAPI, setReloadAPI] = useState(false)
 
   useEffect(() => {
-    fetch(URL_API)
+    fetch(`http://localhost:3005/api/registro/1`)
       .then(
         resposta => { return resposta.json() }
       )
@@ -41,7 +40,6 @@ export default function Home() {
       .catch(err => console.log(err))
   }, [reloadAPI])
 
-  
   return (
     <>
       <Header />
@@ -69,7 +67,7 @@ export default function Home() {
             </div>
           </div>
 
-          <ModalTrasacao URL_API={URL_API} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} />
+          <ModalTrasacao reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} />
         </div>
 
         <GraficoMeta respostaAPI={respostaAPI}/>

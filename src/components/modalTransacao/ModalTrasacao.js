@@ -38,15 +38,17 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 		const data = Object.fromEntries(formData)
 		console.log(data)
 
-		fetch(URL_API, {
+		fetch(`http://localhost:3005/api/registro/registrar/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(data)
+			
 		})
 			.then(formulario.reset(),
-				setReloadAPI(!reloadAPI)
+				setReloadAPI(!reloadAPI),
+				console.log(data)
 			)
 	}
 
@@ -73,11 +75,11 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 							{/* Tipo de operação */}
 							<div className='d-flex justify-content-around mb-4 mt-2'>
 								<label className={`${styles.tipoOperacao}`} htmlFor='operacaoEntrada'>Entrada
-									<input type='radio' className='' name='tipoOperacao' id='operacaoEntrada' value='entrada' required onChange={() => {setTipoOperacao('entrada'); setSelectedCategoria('')}} />
+									<input type='radio' className='' name='tipo' id='operacaoEntrada' value='entrada' required onChange={() => {setTipoOperacao('entrada'); setSelectedCategoria('')}} />
 								</label>
 
 								<label className={`${styles.tipoOperacao}`} htmlFor='operacaoSaida'>Saída
-									<input type='radio' className='' name='tipoOperacao' id='operacaoSaida' value='saida' required onChange={() => {setTipoOperacao('saida'); setSelectedCategoria('')}} />
+									<input type='radio' className='' name='tipo' id='operacaoSaida' value='saida' required onChange={() => {setTipoOperacao('saida'); setSelectedCategoria('')}} />
 								</label>
 							</div>
 
@@ -104,7 +106,7 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 							{selectedCategoria !== '' && (
 								<>
 									<label htmlFor="selectSubcategoria">Subcategoria</label>
-									<select className="form-select my-2" name='subCategoria' id="selectSubcategoria" required>
+									<select className="form-select my-2" name='subcategoria' id="selectSubcategoria" required>
 										<option defaultValue></option>
 										{categorias_e_subs[selectedCategoria].map(cat => <option value={cat}>{cat}</option>)}
 									</select>
@@ -112,25 +114,25 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 							)}
 
 							{/* Data da operação */}
-							<Input type='datetime-local' name='data' label='Data' required />
+							<Input type='date' name='data' label='Data' required />
 
 
 							<h5>Recorrência:</h5>
 							<div className={`d-flex row justify-content-around py-4 mx-1 ${styles.divRadios}`}>
 
 								<label className={`${styles.recorrencia}`} htmlFor='unica_id'>
-									<input className="my-auto" type="radio" name="recorrencia" id="unica_id" value='unica' checked={recorrencia === 'unica'} onChange={(e) => { setRecorrencia(e.target.value); }} />Operação única
+									<input className="my-auto" type="radio" name="recorrencia" id="unica_id" value='nao' checked={recorrencia === 'nao'} onChange={(e) => { setRecorrencia(e.target.value); }} />Operação única
 								</label>
 
 								<label className={`${styles.recorrencia}`} htmlFor='recorrente_id'>
-									<input className="my-auto" type="radio" name="recorrencia" id="recorrente_id" value='recorrente' checked={recorrencia === 'recorrente'} onChange={(e) => { setRecorrencia(e.target.value); }} />
+									<input className="my-auto" type="radio" name="recorrencia" id="recorrente_id" value='sim' checked={recorrencia === 'sim'} onChange={(e) => { setRecorrencia(e.target.value); }} />
 									Operação recorrente
 								</label>
 
 
-								{recorrencia === 'recorrente' && (
+								{recorrencia === 'sim' && (
 									<div className={`${styles.periodos_container}`}>
-										{["Semanal", "Quinzenal", "Mensal", "Semestral", "Anual"].map(periodo => (
+										{["Semanal", "mensal", "Anual"].map(periodo => (
 											<label className={`${styles.periodos}`} htmlFor={periodo}>
 												<input type="radio" name="periodoRecorrencia" id={periodo} value={periodo} required/> {periodo}
 											</label>

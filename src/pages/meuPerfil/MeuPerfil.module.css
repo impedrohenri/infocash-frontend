@@ -1,7 +1,41 @@
-.text{
-    text-align: center;
-    margin-top: 40vh;
+main{
+    margin: 4vmin;
+    padding: 2vmin;
 }
-.text2{
-    text-align: center;
+
+.h1{
+    padding: 0;
+    margin: 20px auto 0;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.section{
+    width: 700px;
+    max-width: 98%;
+    margin: 40px auto 10px;
+    padding: 2vmin;
+    background-color: var(--mColor-lightest);
+
+    border: 1px solid var(--mColor-deep);
+    outline: 2px solid var(--mColor-light);
+    border-radius: 10px
+}
+
+.label{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.button{
+    border: 1px solid var(--mColor-deep) !important;
+    color: var(--mColor-bright) !important;
+}
+.button:hover{
+    background-color: var(--mColor-deep) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+.unlock_input{
+
 }

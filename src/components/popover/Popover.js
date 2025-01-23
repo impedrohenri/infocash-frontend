@@ -1,5 +1,5 @@
 import styles from './Popover.module.css'
-import changeIcon from '../../img/infocash-brand/png/infocash-coin-black.png'
+
 import { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
@@ -45,7 +45,7 @@ export default function Popover({setLimiteMensal}) {
 
         setLimiteMensal(formData.get('limite_mensal'))
 
-        fetch('https://crudcrud.com/api/c1171879150141499b3e41bef98a6e92/limite', {
+        fetch('', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export default function Popover({setLimiteMensal}) {
     return (
         <>
             <Button ref={target} className={`${styles.botao}`} onClick={() => setShow(!show)}>
-                <img src={changeIcon} alt='' />
+                <img src='../../img/infocash-brand/png/infocash-coin-black.png' alt='' />
             </Button>
             <Overlay target={target.current} show={show} placement="left" ref={overlayRef}>
                 {(props) => (
