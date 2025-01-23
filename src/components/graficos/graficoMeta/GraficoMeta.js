@@ -1,7 +1,8 @@
 import styles from './GraficoMeta.module.css';
 import Chart from 'chart.js/auto';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Popover from '../../popover/Popover';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 
 
@@ -9,6 +10,7 @@ export default function GraficoMeta(props) {
 
   const [limiteMensal, setLimiteMensal] = useState(0)
   const [limiteRestante, setLimiteRestante] = useState(0)
+  const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
 
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function GraficoMeta(props) {
     const categoriasSaida = [
       ...new Set(
         props.respostaAPI
-          .filter(operacao => operacao.tipoOperacao === "saida")
+          .filter(operacao => operacao.tipo === "saida")
           .map(operacao => String(operacao.categoria))
       )
     ];
@@ -27,7 +29,7 @@ export default function GraficoMeta(props) {
 
       for (let cat of categorias) {
         let lista = []
-        resJSON.forEach(operacao => (operacao.categoria === cat) && (operacao.tipoOperacao === "saida") && lista.push(parseInt(operacao.valor)));
+        resJSON.forEach(operacao => (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseInt(operacao.valor)));
         data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0))
       };
 
@@ -36,8 +38,19 @@ export default function GraficoMeta(props) {
 
     const calcularLimiteRestante = (dados, limite) => {
       const totalGasto = dados.reduce((acc, valor) => parseFloat(acc + valor), 0);
-      return Math.max(0, parseFloat(limite - totalGasto)); // Garantir que o valor não seja negativo
+      return Math.max(0, parseFloat(limite - totalGasto));
     };
+
+    fetch(`http://localhost:3005/conta/${id}`)
+    .then((res) => {
+        return res.json();
+    })
+    .then((data) => {
+        console.log(data);
+        setLimiteMensal(data);
+    })
+
+
 
 
     const ctx = document.getElementById('grafico');

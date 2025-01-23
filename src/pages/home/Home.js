@@ -13,8 +13,10 @@ export default function Home() {
   const [respostaAPI, setRespostaAPI] = useState([])
   const [reloadAPI, setReloadAPI] = useState(false)
 
+  const id = JSON.parse(localStorage.getItem('@Auth:user'))
+
   useEffect(() => {
-    fetch(`http://localhost:3005/api/registro/1`)
+    fetch(`http://localhost:3005/api/registro/${id["id_usuario"]}`)
       .then(
         resposta => { return resposta.json() }
       )
@@ -24,11 +26,11 @@ export default function Home() {
           console.log(res)
 
           const entrada = res
-            .filter(operacao => operacao.tipoOperacao === 'entrada')
+            .filter(operacao => operacao.tipo === 'entrada')
             .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
 
           const saida = res
-            .filter(operacao => operacao.tipoOperacao === 'saida')
+            .filter(operacao => operacao.tipo === 'saida')
             .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
 
           

@@ -6,7 +6,7 @@ export default function HistoryCard({ operacao }) {
             <div className={`p-3 col-12 ${styles.card}`}>
                 <div className={`${styles.card_header}`}>
                     {/* Indicador visual do tipo de operação */}
-                    <div className={`${styles.tipo_operacao} ${styles[operacao.tipoOperacao]}`}></div>
+                    <div className={`${styles.tipo_operacao} ${styles[operacao.tipo]}`}></div>
                     <h6 className={`${styles.card_title}`}>{operacao.titulo}</h6>
                     <span className={`${styles.valor}`}>R$ {parseFloat(operacao.valor).toFixed(2)}</span>
                 </div>
@@ -15,7 +15,7 @@ export default function HistoryCard({ operacao }) {
                     
                     {/* Categoria e subcategoria */}
                     <p className={`${styles.categoria}`}>
-                        <strong>Categoria:</strong> {operacao.categoria} ( {operacao.subCategoria} )
+                        <strong>Categoria:</strong> {operacao.categoria} ( {operacao.subcategoria} )
                     </p>
                     {/* Data da operação */}
                     <p className={`${styles.data}`}>

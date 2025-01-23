@@ -10,6 +10,7 @@ export default function Popover({setLimiteMensal}) {
     const [show, setShow] = useState(false);
     const target = useRef(null);
     const overlayRef = useRef(null);
+    const id = JSON.parse(localStorage.getItem('@Auth:user'))
 
     // FECHA O POPOVER AO CLICAR FORA
     const handleOutsideClick = (event) => {
@@ -36,8 +37,9 @@ export default function Popover({setLimiteMensal}) {
 
 
     // EXECUTA AO SUBMETER O FORM DO POPOVER
-    const formulario = document.getElementById("formularioLimite")
+    
     const handleSubmit = (evento) => {
+        const formulario = document.getElementById("formularioLimite")
         evento.preventDefault()
         const formData = new FormData(formulario)
         const data = Object.fromEntries(formData)
@@ -45,14 +47,16 @@ export default function Popover({setLimiteMensal}) {
 
         setLimiteMensal(formData.get('limite_mensal'))
 
-        fetch('', {
-            method: 'POST',
+        fetch(`http://localhost:3005/conta/${id["id_usuario"]}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         })
-        .then(formulario.reset())
+        .then((res) => console.log(res),
+            
+            formulario.reset())
             
             
     }

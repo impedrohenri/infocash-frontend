@@ -1,6 +1,7 @@
+import { AuthContext } from '../../contexts/AuthContext';
 import Input from '../forms/input/Input'
 import styles from './ModalTrasacao.module.css'
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 
 
@@ -9,7 +10,7 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 	const [recorrencia, setRecorrencia] = useState('unica');
 	const [selectedCategoria, setSelectedCategoria] = useState('');
     const [tipoOperacao, setTipoOperacao] = useState('');
-
+	const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
 
 	const categorias_e_subs = {
         'Alimentação': ['Supermercado', 'Restaurantes', 'Lanches', 'Bebidas', 'Delivery', 'Padaria', 'Outros'],
@@ -29,16 +30,17 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 	}
 
 
-	const formulario = document.getElementById("formularioOperacoes")
+	
 
 	const handleSubmit = (evento) => {
+		const formulario = document.getElementById("formularioOperacoes")
 		evento.preventDefault();
 
 		const formData = new FormData(formulario)
 		const data = Object.fromEntries(formData)
 		console.log(data)
 
-		fetch(`http://localhost:3005/api/registro/registrar/`, {
+		fetch(`http://localhost:3005/api/registro/registrar/${id}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
