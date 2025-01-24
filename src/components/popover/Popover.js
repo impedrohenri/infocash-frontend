@@ -47,7 +47,7 @@ export default function Popover({setLimiteMensal}) {
 
         setLimiteMensal(formData.get('limite_mensal'))
 
-        fetch(`http://localhost:3005/conta/${id["id_usuario"]}`, {
+        fetch(`http://localhost:3005/api/conta/meta/${id["id_usuario"]}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

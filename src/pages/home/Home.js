@@ -39,9 +39,11 @@ export default function Home() {
           setTotalSaida(saida);
           setTotalSaldo(entrada - saida);
 
-          fetch(`http://localhost:3005/api/usuario/${id}`)
+          fetch(`http://localhost:3005/api/conta/buscar/${id}`)
             .then((res) => { return res.json() })
-            .then((resp) => setDadosUsuario(resp))
+            .then((resp) => {setDadosUsuario(resp);
+                  console.log(resp)}
+          )
 
         }
       )
@@ -57,21 +59,21 @@ export default function Home() {
           <div className={`card mb-2 text-center ${styles.primaryValue}`}>
             <div className="card-body">
               <h3 className="card-title">Saldo total</h3>
-              <p className="card-text">R$ {totalSaldo}</p>
+              <p className="card-text">R$ {dadosUsuario.saldo}</p>
             </div>
           </div>
 
           <div className={`card ${styles.secundaryValue}`}>
             <div className="card-body">
               <h3 className="card-title">Entradas</h3>
-              <p className="card-text">R$ {totalEntrada}</p>
+              <p className="card-text">R$ {dadosUsuario.renda}</p>
             </div>
           </div>
 
           <div className={`card ${styles.secundaryValue}`}>
             <div className="card-body">
               <h3 className="card-title">Saídas</h3>
-              <p className="card-text">R$ {totalSaida}</p>
+              <p className="card-text">R$ {dadosUsuario.gasto}</p>
             </div>
           </div>
 
@@ -84,7 +86,7 @@ export default function Home() {
       <div className={` ${styles.history_container}`}>
         <h2 className='p-4'>Registros</h2>
         <div className={`d-flex ${styles.history}`}>
-          {respostaAPI.map(( operacao, index) => <HistoryCard key={index} operacao={operacao} />)}
+          {respostaAPI.map(( operacao, index) => (new Date(operacao.data).getTime() <= new Date().getTime()) && <HistoryCard key={index} operacao={operacao} />)}
         </div>
       </div>
     </>

@@ -26,7 +26,7 @@ export default function ResetarSenha(){
 			body: JSON.stringify(data)
 		})
         .then((res) => {
-            if(res.status === 201){
+            if(res.status === 200){
                 navigate('/')
             }}
             

@@ -14,13 +14,13 @@ export default function GraficoMeta(props) {
 
 
   useEffect(() => {
-    fetch(`http://localhost:3005/api/conta/${id}`)
+    fetch(`http://localhost:3005/api/conta/meta/${id}`)
     .then((res) => {
         return res.json();
     })
     .then((data) => {
         console.log(data);
-        setLimiteMensal(data.meta);
+        setLimiteMensal(parseInt(data));
     })
   }, [])
 
@@ -40,7 +40,7 @@ export default function GraficoMeta(props) {
 
       for (let cat of categorias) {
         let lista = []
-        resJSON.forEach(operacao => (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseInt(operacao.valor)));
+        resJSON.forEach(operacao => (new Date(operacao.data).getTime() <= new Date().getTime()) &&  (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseInt(operacao.valor)));
         data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0))
       };
 

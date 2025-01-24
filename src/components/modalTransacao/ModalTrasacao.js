@@ -50,7 +50,6 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 		})
 			.then(formulario.reset(),
 				setReloadAPI(!reloadAPI),
-				console.log(data)
 			)
 	}
 

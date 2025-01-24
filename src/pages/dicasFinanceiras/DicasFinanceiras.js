@@ -7,7 +7,7 @@ export default function DicasFinaceiras(props) {
             <Header />
             <main>
                 <div className="accordion col-11 col-md-8 mx-auto" id="accordionExample">
-                    <h1 className='ms-3'>Dicas e Estratégias Fora do Site</h1>
+                    <h1 className='ms-3'>Dicas e Estratégias</h1>
 
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -55,8 +55,79 @@ export default function DicasFinaceiras(props) {
                         </div>
                     </div>
 
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                4. Automatização de Investimentos
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <strong>Investimentos Automáticos:</strong> Se você ainda não automatizou seus investimentos, pode ser uma boa hora de começar. Plataformas como XP Investimentos, Modal Mais ou Rico oferecem robôs de investimento que fazem todo o trabalho para você, selecionando as melhores opções com base no seu perfil.<br/>
+                                <strong>Round-up:</strong> Você já experimentou o round-up? Alguns aplicativos permitem que você arredonde suas compras para cima, e a diferença vai diretamente para um investimento. Isso ajuda você a economizar de forma automática e sem nem perceber, como o AloTech, Stoodi ou Rico.
 
-                </div >   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            5. Evitar o Consumo Impulsivo
+                            </button>
+                        </h2>
+                        <div id="collapseFive" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                            <strong>Controle de Consumo:</strong> Manter o controle de seus gastos pode ser mais fácil do que parece! Existem apps como Mobills, GuiaBolso ou Minhas Economias que ajudam a bloquear compras por impulso e permitem que você acompanhe seu orçamento com mais clareza.<br/>
+                            <strong> Alertas de Gastos:</strong> Vários bancos e apps de finanças enviam alertas sempre que você está perto de ultrapassar o limite do seu orçamento em uma categoria. Isso pode ser uma boa forma de controlar seus gastos e evitar surpresas no fim do mês.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1 className='m-4 p-4'>Dicas e Estratégias Usando o Site</h1>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                            1. Planejamento de Metas Financeiras
+                            </button>
+                        </h2>
+                        <div id="collapseSix" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                            <strong>Visão Clara dos Gastos Diários:</strong> Aqui no site, você pode acompanhar seus gastos de forma simples e direta. Use seu histórico de visualização dos gastos para visualizar a linha do tempo dos seus gastos ao longo do mês e planeje com mais clareza onde você pode economizar para alcançar suas metas financeiras.
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                            2. Veja Com o Que Você Gasta Mais
+                            </button>
+                        </h2>
+                        <div id="collapseSeven" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                            <strong>Gráficos Interativos:</strong> Fique de olho no que mais impacta seu bolso! Com nossos gráficos de pizza ou barras de progressão, você verá claramente onde está gastando mais. Se perceber que está gastando muito em um item, como alimentação ou lazer, pode ser a hora de ajustar os gastos e economizar um pouco mais.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                            3. Defina Metas e Possíveis Gastos Futuros
+                            </button>
+                        </h2>
+                        <div id="collapseEight" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                            <strong>Simulador de Gastos Futuros:</strong> Quer se planejar para o futuro sem correr riscos? Use nossa ferramenta de simulação de gastos para definir suas metas financeiras. Ela vai te mostrar de forma prática como alcançar seus objetivos sem extrapolar o orçamento.
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div >
             </main>
         </>
     )
