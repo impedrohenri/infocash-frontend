@@ -1,6 +1,6 @@
 import styles from './Home.module.css'
 import Header from "../../components/header/Header";
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
 import HistoryCard from '../../components/historyCard/HistoryCard';
@@ -12,6 +12,7 @@ export default function Home() {
   const [totalSaida, setTotalSaida] = useState(0);
   const [respostaAPI, setRespostaAPI] = useState([])
   const [reloadAPI, setReloadAPI] = useState(false)
+  const [dadosUsuario, setDadosUsuario] = useState({})
 
   const id = JSON.parse(localStorage.getItem('@Auth:user'))
 
@@ -33,10 +34,15 @@ export default function Home() {
             .filter(operacao => operacao.tipo === 'saida')
             .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
 
-          
+
           setTotalEntrada(entrada);
           setTotalSaida(saida);
           setTotalSaldo(entrada - saida);
+
+          fetch(`http://localhost:3005/api/usuario/${id}`)
+            .then((res) => { return res.json() })
+            .then((resp) => setDadosUsuario(resp))
+
         }
       )
       .catch(err => console.log(err))
@@ -72,7 +78,7 @@ export default function Home() {
           <ModalTrasacao reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} />
         </div>
 
-        <GraficoMeta respostaAPI={respostaAPI}/>
+        <GraficoMeta respostaAPI={respostaAPI} />
       </div>
 
       <div className={` ${styles.history_container}`}>

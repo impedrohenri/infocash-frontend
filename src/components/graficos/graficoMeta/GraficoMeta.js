@@ -14,6 +14,17 @@ export default function GraficoMeta(props) {
 
 
   useEffect(() => {
+    fetch(`http://localhost:3005/conta/${id}`)
+    .then((res) => {
+        return res.json();
+    })
+    .then((data) => {
+        console.log(data);
+        setLimiteMensal(data);
+    })
+  })
+
+  useEffect(() => {
     // Filtra as categorias que possuem operações cadastradas
     const categoriasSaida = [
       ...new Set(

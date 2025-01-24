@@ -42,8 +42,8 @@ export default function Login() {
                     <form id='formCadastro' onSubmit={handleSubmit}>
 
 
-                        <Input name='email' type='email' id='emailLogin' label='E-mail' placeholder="Digite seu e-mail" />
-                        <Input name='senha' type='password' id='senhaLogin' label='Senha' placeholder="Digite sua senha" />
+                        <Input name='email' type='email' id='emailLogin' label='E-mail' placeholder="Digite seu e-mail" required='true'/>
+                        <Input name='senha' type='password' id='senhaLogin' label='Senha' placeholder="Digite sua senha" required='true'/>
                         <Link to='/recuperar-senha'><span>Esqueceu a senha?</span></Link>
                         <div className='d-flex justify-content-center'>
                             <SubmitButton className='px-4' value='Entrar' />

@@ -36,10 +36,6 @@ export default function MeuPerfil(props) {
         e.preventDefault()
         const formData = new FormData(formulario)
         const data = Object.fromEntries(formData)
-        data.id = id;
-        data.nome = dadosUsuario.nome;
-        data.senhaAntiga = dadosUsuario.senha;
-        console.log(data)
 
         fetch(`http://localhost:3005/api/usuario/${id}`, {
             method: 'PUT',
@@ -49,6 +45,7 @@ export default function MeuPerfil(props) {
             body: JSON.stringify(data)
 
         })
+        console.log(data)
     }
 
     return (
@@ -58,21 +55,36 @@ export default function MeuPerfil(props) {
             <main className={`card`}>
                 <h1 className={`${styles.h1}`}>Meu Perfil</h1>
                 <section className={`${styles.section}`}>
+
                     <button className={`btn ms-auto d-flex ${styles.unlock_input} ${styles.button}`} onClick={handleUnlock}><img src='../../img/infocash-brand/svg/infocash-doublearrow-black.svg' alt='' height={20} /></button>
+
                     <form id='formEmail' onSubmit={handleTrocarSenha}>
+
+                        <label htmlFor="InputNome" className={`form-label ${styles.label}`}>Nome de Usuário</label>
+                        <div className="input-group mb-3">
+                            <input type="text" name='nome' placeholder='Seu nome' className="form-control" id="InputNome" aria-describedby="emailHelp" disabled={isLocked} defaultValue={dadosUsuario['nome']} required/>
+                        </div>
+
                         <label htmlFor="InputEmail" className={`form-label ${styles.label}`}>Email</label>
                         <div className="input-group mb-3">
-                            <input type="email" name='email' placeholder='exemplo@email.com' className="form-control" id="InputEmail" aria-describedby="emailHelp" disabled={isLocked} defaultValue={dadosUsuario['email']} />
+                            <input type="email" name='email' placeholder='exemplo@email.com' className="form-control" id="InputEmail" aria-describedby="emailHelp" disabled={isLocked} defaultValue={dadosUsuario['email']} required/>
+                        </div>
 
-                        </div>
-                        <label htmlFor="mudarSenha" className={`form-label ${styles.label}`}>Senha</label>
+                        <label htmlFor="InputSenha1" className={`form-label ${styles.label}`}>Senha Anterior</label>
                         <div className="input-group mb-3">
-                            <input type="password" name='senhaNova' placeholder='°°°°°°°°°°°' className="form-control" id="mudarSenha" aria-describedby="emailHelp" disabled={isLocked} />
+                            <input type="password" name='senhaAnterior' placeholder='°°°°°°°°°°°' className="form-control" id="InputSenha1" aria-describedby="emailHelp" disabled={isLocked} required/>
                         </div>
-                        <label htmlFor="mudarSenha2" className={`form-label ${styles.label}`}>Senha</label>
+
+                        <label htmlFor="InputSenha2" className={`form-label ${styles.label}`}>Nova senha</label>
                         <div className="input-group mb-3">
-                            <input type="password" name='senhaNovaConfirmar' placeholder='°°°°°°°°°°°' className="form-control" id="mudarSenha2" aria-describedby="emailHelp" disabled={isLocked} />
+                            <input type="password" name='senhaNova' placeholder='°°°°°°°°°°°' className="form-control" id="InputSenha2" aria-describedby="emailHelp" disabled={isLocked} required/>
                         </div>
+
+                        <label htmlFor="InputSenha3" className={`form-label ${styles.label}`}>Confirmar nova senha</label>
+                        <div className="input-group mb-3">
+                            <input type="password" name='confirmar' placeholder='°°°°°°°°°°°' className="form-control" id="InputSenha3" aria-describedby="emailHelp" disabled={isLocked} required/>
+                        </div>
+
                         <button className={`btn btn-outline-dark ${styles.button}`} type="submit" disabled={isLocked}>Alterar</button>
                     </form>
                 </section>

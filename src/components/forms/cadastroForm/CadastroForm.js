@@ -24,7 +24,7 @@ export default function CadastroForm(props) {
 		})
         .then(res => {
             if (res.status === 201) {
-                window.location.replace('http://localhost:3000/login');
+                window.location.replace('http://localhost:3000/');
             }
         })
 	}
@@ -37,20 +37,20 @@ export default function CadastroForm(props) {
                     
 
 
-                    <Input name='nome' type='name' id='nomeCadastro' label='Nome' placeholder="Digite seu nome"/>
-                    <Input name='email' type='email' id='emailCadastro' label='E-mail' placeholder="Digite seu e-mail"/>
-                    <Input name='senha' type='password' id='senhaCadastro' label='Senha' placeholder="Crie uma senha"/>
-                    <Input name='confirmar' type='password' id='confSenhaCadastro' label='Confirmar senha' placeholder="Confirme a senha"/>
+                    <Input name='nome' type='name' id='nomeCadastro' label='Nome' placeholder="Digite seu nome" required='true'/>
+                    <Input name='email' type='email' id='emailCadastro' label='E-mail' placeholder="Digite seu e-mail" required='true'/>
+                    <Input name='senha' type='password' id='senhaCadastro' label='Senha' placeholder="Crie uma senha" required='true' />
+                    <Input name='confirmar' type='password' id='confSenhaCadastro' label='Confirmar senha' placeholder="Confirme a senha" required='true'/>
 
                     <div className='d-flex justify-content-between'>
-                    <SubmitButton value='cadastrar'/>
+                    <SubmitButton value='Cadastrar'/>
                         
                         <input type='reset' className='btn btn-outline-secondary mt-4 ' value='Limpar'/>
                     </div>
                 </form>
             </div>
 
-            <span className='my-4'>Você já tem uma conta? <Link to='/login'>Voltar ao login</Link></span>
+            <span className='my-4'>Você já tem uma conta? <Link to='/'>Voltar ao login</Link></span>
         </>
     )
 }
