@@ -8,6 +8,7 @@ import Ajuda from './pages/ajuda/Ajuda';
 import RecuperarSenha from './pages/recuperarSenha/RecuperarSenha';
 import PrivateRoute from './auth/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
+import ResetarSenha from './pages/resetarSenha/ResetarSenha';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route path="/cadastro" element={<Cadastro />} />
           <Route path='/recuperar-senha' element={<RecuperarSenha />} />
+          <Route path='/resetar-senha' element={<ResetarSenha/>}/>
 
           <Route path='/home' element={<PrivateRoute/>}>
             <Route path='/home' element={<Home />} />

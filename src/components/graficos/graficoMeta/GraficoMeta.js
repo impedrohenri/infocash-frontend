@@ -14,15 +14,15 @@ export default function GraficoMeta(props) {
 
 
   useEffect(() => {
-    fetch(`http://localhost:3005/conta/${id}`)
+    fetch(`http://localhost:3005/api/conta/${id}`)
     .then((res) => {
         return res.json();
     })
     .then((data) => {
         console.log(data);
-        setLimiteMensal(data);
+        setLimiteMensal(data.meta);
     })
-  })
+  }, [])
 
   useEffect(() => {
     // Filtra as categorias que possuem operações cadastradas
@@ -52,14 +52,6 @@ export default function GraficoMeta(props) {
       return Math.max(0, parseFloat(limite - totalGasto));
     };
 
-    fetch(`http://localhost:3005/conta/${id}`)
-    .then((res) => {
-        return res.json();
-    })
-    .then((data) => {
-        console.log(data);
-        setLimiteMensal(data);
-    })
 
 
 

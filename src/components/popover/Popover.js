@@ -72,7 +72,7 @@ export default function Popover({setLimiteMensal}) {
                         <form id='formularioLimite' onSubmit={handleSubmit}>
                             <span className='fs-5'> Definir meu limite mensal</span>
                             <div className="form-floating mb-3 ">
-                                <input type="number" name='limite_mensal' className="form-control fs-5 my-2" placeholder='R$' step={0.01} min={0} required />
+                                <input type="number" name='meta' className="form-control fs-5 my-2" placeholder='R$' step={0.01} min={0} required />
                                 <label htmlFor="floatingInput">R$</label>
                             </div>
                             <button type='submit' className='btn'>Confirmar</button>

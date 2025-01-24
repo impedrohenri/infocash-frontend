@@ -134,7 +134,7 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 
 								{recorrencia === 'sim' && (
 									<div className={`${styles.periodos_container}`}>
-										{["Semanal", "mensal", "Anual"].map(periodo => (
+										{["Semanal", "Mensal", "Anual"].map(periodo => (
 											<label className={`${styles.periodos}`} htmlFor={periodo}>
 												<input type="radio" name="periodoRecorrencia" id={periodo} value={periodo} required/> {periodo}
 											</label>

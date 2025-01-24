@@ -1,6 +1,11 @@
 import styles from './HistoryCard.module.css'
 
 export default function HistoryCard({ operacao }) {
+    const novaData = new Date(operacao.data);
+    novaData.setDate(novaData.getDate() + 1);
+    const dataFormatada = novaData.toLocaleDateString();
+
+
     return (
         <div className={`col-12 col-md-4 p-2 ${styles.card_container}`}>
             <div className={`p-3 col-12 ${styles.card}`}>
@@ -12,14 +17,14 @@ export default function HistoryCard({ operacao }) {
                 </div>
                 <div className={`${styles.card_body}`}>
                     {/* Valor da operação */}
-                    
+
                     {/* Categoria e subcategoria */}
                     <p className={`${styles.categoria}`}>
                         <strong>Categoria:</strong> {operacao.categoria} ( {operacao.subcategoria} )
                     </p>
                     {/* Data da operação */}
                     <p className={`${styles.data}`}>
-                        <strong>Data:</strong> {new Date(operacao.data).toLocaleDateString()}
+                        <strong>Data:</strong> {dataFormatada}
                     </p>
                 </div>
             </div>

@@ -2,6 +2,24 @@ import { Link } from 'react-router-dom'
 import styles from './RecuperarSenha.module.css'
 
 export default function RecuperarSenha() {
+
+    const handleSubmit = (evento) => {
+		const formulario = document.getElementById("formulario")
+		evento.preventDefault();
+
+		const formData = new FormData(formulario)
+		const data = Object.fromEntries(formData)
+		console.log(data)
+
+		fetch(`http://localhost:3005/api/usuario/esquecer-senha`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+	}
+
     return (
         <body className={`d-flex flex-column align-items-center justify-content-center ${styles.body}`}>
             <div className='d-flex align-items-center justify-content-center'>
@@ -12,7 +30,7 @@ export default function RecuperarSenha() {
             <div className={`card col-11 col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 mx-auto p-4`}>
                 <h2 className='text-center mb-4'>Recuperar Senha</h2>
                 <span className='pb-4 mb-4'>Informe seu email, um código será enviado para que possa dar continuidade a recuperação de senha.</span>
-                <form onSubmit={''}>
+                <form id='formulario' onSubmit={handleSubmit}>
                     <label className='form-label fw-semibold fs-5' htmlFor='email' >Email</label>
                     <input type='email' className='form-control' id='email' placeholder='Informe seu email'/>
             

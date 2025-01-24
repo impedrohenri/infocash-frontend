@@ -14,10 +14,10 @@ export default function Home() {
   const [reloadAPI, setReloadAPI] = useState(false)
   const [dadosUsuario, setDadosUsuario] = useState({})
 
-  const id = JSON.parse(localStorage.getItem('@Auth:user'))
+  const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
 
   useEffect(() => {
-    fetch(`http://localhost:3005/api/registro/${id["id_usuario"]}`)
+    fetch(`http://localhost:3005/api/registro/${id}`)
       .then(
         resposta => { return resposta.json() }
       )
@@ -84,7 +84,7 @@ export default function Home() {
       <div className={` ${styles.history_container}`}>
         <h2 className='p-4'>Registros</h2>
         <div className={`d-flex ${styles.history}`}>
-          {respostaAPI.map(operacao => <HistoryCard operacao={operacao} />)}
+          {respostaAPI.map(( operacao, index) => <HistoryCard key={index} operacao={operacao} />)}
         </div>
       </div>
     </>
