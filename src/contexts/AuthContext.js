@@ -20,8 +20,8 @@ export const AuthProvider = ({ children }) => {
         loadingStoreData();
     }, []);
 
-    const signIn = async (data) => {
-        await fetch("http://localhost:3005/api/usuario/login", {
+    const signIn = (data) => {
+        fetch("http://localhost:3005/api/usuario/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -29,8 +29,9 @@ export const AuthProvider = ({ children }) => {
             body: JSON.stringify(data),
         })
             .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Erro na autenticação: " + response.statusText);
+                if (response.status === 401) {
+                    console.log(response.status)
+                    return false
                 }
                 return response.json();
             })
@@ -41,12 +42,12 @@ export const AuthProvider = ({ children }) => {
                     setUser(data);
                     localStorage.setItem("@Auth:user", JSON.stringify(data));
                     localStorage.setItem("@Auth:token", data.token);
-                    console.log(data.token)
-                    console.log("Login bem-sucedido!");
+                    return true;
                 }
             })
             .catch((error) => {
                 console.error("Erro ao realizar login:", error);
+                return false;
             });
     };
 
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.clear()
         setUser(null);
         console.log(user)
-        window.location.href="http://localhost:3000/"
+        window.location.href="http://192.168.1.200:3000/"
     };
 
     return (

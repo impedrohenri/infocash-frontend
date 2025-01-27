@@ -24,3 +24,11 @@ input:focus, select:focus{
   border-color: var(--mColor-bright) !important;
   box-shadow: 0 0 0px 4px var(--mColor-lightest) !important;
 }
+a{
+  color: var(--mColor-deep);
+  text-decoration: none;
+  transition: 150ms;
+}
+a:hover{
+  color: var(--mColor-deep);
+}

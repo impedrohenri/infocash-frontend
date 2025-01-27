@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
 import styles from './RecuperarSenha.module.css'
+import SubmitButton from '../../components/forms/submitButton/SubmitButton';
 
 export default function RecuperarSenha() {
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-		const formulario = document.getElementById("formulario")
-		
-
-		const formData = new FormData(formulario)
+		const formData = new FormData(document.getElementById("formulario"))
 		const data = Object.fromEntries(formData)
 		console.log(data)
 
@@ -22,6 +21,7 @@ export default function RecuperarSenha() {
 	}
 
     return (
+        <main className={`${styles.main}`}>
         <div className={`d-flex flex-column align-items-center justify-content-center ${styles.body}`}>
             <div className='d-flex align-items-center justify-content-center'>
                 <img src='../../img/infocash-brand/png/infocash-logo-black.png' alt="Logo" height="70" className={`me-4 my-4 LOGO`} />
@@ -37,11 +37,12 @@ export default function RecuperarSenha() {
             
 
                     <div className='d-flex justify-content-between'>
-                        <Link to='/'><div className='btn btn-primary mt-4'>Cancelar</div></Link>
-                        <button type='submit' className='btn btn-outline-secondary mt-4'>Enviar</button>
+                        <Link to='/'><div className='btn btn-outline-secondary mt-4'>Cancelar</div></Link>
+                        <SubmitButton value='Enviar'/>
                     </div>
                 </form>
             </div>
         </div>
+        </main>
     )
 }

@@ -1,0 +1,12 @@
+.botao{
+    background-color: var(--mColor-bright) !important;
+    border: 1px solid var(--mColor-deep);
+}
+.botao:hover{
+    background-color: var(--mColor-deep) !important;
+    border: 1px solid var(--mColor-medium);
+}
+.botao:active{
+    background-color: var(--mColor-medium) !important;
+    border: 1px solid var(--mColor-bright) !important
+}
