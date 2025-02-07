@@ -36,6 +36,7 @@ main{
     color: rgb(255, 255, 255) !important;
 }
 
-.unlock_input{
-
+.validMSG{
+    font-size: 15px;
+    color: rgb(0, 155, 0);
 }

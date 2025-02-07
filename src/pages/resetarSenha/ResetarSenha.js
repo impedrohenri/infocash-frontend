@@ -2,21 +2,48 @@ import styles from './ResetarSenha.module.css'
 import Input from "../../components/forms/input/Input";
 import SubmitButton from "../../components/forms/submitButton/SubmitButton";
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { InputMsgErro } from '../../utils';
 
 export default function ResetarSenha() {
-
     const navigate = useNavigate()
+    const [invalidText, setInvalidText] = useState({});
+    const erros = {}
 
-    const handleSubmit = (evento) => {
-        const formulario = document.getElementById("formulario")
-        evento.preventDefault();
+    const resetStyles = (id) => {
+        document.getElementById(id)?.style?.setProperty('border', '', 'important');
+        document.getElementById(id)?.style?.setProperty('outline', '', 'important');
+        setInvalidText({});
+    };
 
-        const formData = new FormData(formulario)
-        const data = Object.fromEntries(formData)
-        console.log(data)
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = {}
+
+        data.senhaNova = event.target.senhaNova.value;
+        
 
         const params = new URLSearchParams(window.location.search);
         const token = params.get('token');
+
+        if (data.senhaNova === '') {
+            erros.senhaNova = InputMsgErro('senhaNova', true, 'Crie uma senha');
+            setInvalidText(erros);
+            return
+        } else if (data.senhaNova.length < 8) {
+            erros.senhaNova = InputMsgErro('senhaNova', true, 'A senha deve conter no mínimo 8 caracteres');
+            setInvalidText(erros);
+            return
+        }
+        if (data.confirmar === '') {
+            erros.confirmar = InputMsgErro('confirmar', true, 'Digite sua senha novamente');
+            setInvalidText(erros);
+            return
+        } else if (data.senhaNova !== event.target.confirmar.value) {
+            erros.confirmar = InputMsgErro('confirmar', true, 'As senhas não coincidem');
+            setInvalidText(erros);
+            return
+        }
 
         fetch(`http://localhost:3005/api/usuario/resetar-senha/${token}`, {
             method: 'POST',
@@ -29,9 +56,7 @@ export default function ResetarSenha() {
                 if (res.status === 200) {
                     navigate('/')
                 }
-            }
-
-            )
+            })
     }
 
     return (
@@ -44,9 +69,11 @@ export default function ResetarSenha() {
 
                 <div className={`card col-11 col-xs-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 mx-auto p-4`}>
                     <h2 className='text-center mb-4'>Resetar Senha</h2>
-                    <span className='pb-4 mb-4'>Digite sua nova senha.</span>
+                    <span className='pb-4 fs-5 fw-semibold'>Digite sua nova senha.</span>
                     <form id='formulario' onSubmit={handleSubmit}>
-                        <Input name='senhaNova' label='Nova senha' />
+                        <Input name='senhaNova' id='senhaNova' type='password' label='Nova senha' invalidText={invalidText.senhaNova}
+                                    onChange={() => resetStyles('senhaNova')}/>
+                        <Input name='confirmar' id='confirmar' type='password' label='Nova senha' invalidText={invalidText.confirmar} onChange={() => resetStyles('confirmar')}/>
                         <SubmitButton value='Confirmar' />
                     </form>
                 </div>

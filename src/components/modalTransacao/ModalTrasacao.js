@@ -48,8 +48,8 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 			body: JSON.stringify(data)
 			
 		})
-			.then(formulario.reset(),
-				setReloadAPI(!reloadAPI),
+			.then(() => {formulario.reset();
+				setReloadAPI(!reloadAPI)}
 			)
 	}
 
@@ -95,7 +95,7 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 							<select className="form-select my-2" name='categoria' id="selectCategoria" onChange={() => { setSelectedCategoria(document.getElementById("selectCategoria").value) }} required>
 								<option defaultValue></option>
 								{Object.keys(categorias_e_subs)
-                                .filter((cat) => tipoOperacao !== 'entrada'? cat !== 'Salário': cat === 'Salário')
+                                .filter((cat) => tipoOperacao === 'saida'? cat !== 'Salário': cat === 'Salário')
                                 .map((cat) => (
                                     <option key={cat} value={cat}>
                                     {cat}
@@ -109,7 +109,7 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 									<label htmlFor="selectSubcategoria">Subcategoria</label>
 									<select className="form-select my-2" name='subcategoria' id="selectSubcategoria" required>
 										<option defaultValue></option>
-										{categorias_e_subs[selectedCategoria].map(cat => <option value={cat}>{cat}</option>)}
+										{categorias_e_subs[selectedCategoria].map(cat => <option key={cat} value={cat}>{cat}</option>)}
 									</select>
 								</>
 							)}

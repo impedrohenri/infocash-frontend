@@ -1,100 +1,224 @@
-import { useNavigate } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
-import Header from '../../components/header/Header'
-import styles from './MeuPerfil.module.css'
+import { useContext, useEffect, useState, useRef } from 'react';
+import { Modal } from 'bootstrap';
+import Header from '../../components/header/Header';
+import styles from './MeuPerfil.module.css';
 import { AuthContext } from '../../contexts/AuthContext';
+import SubmitButton from '../../components/forms/submitButton/SubmitButton';
+import Input from '../../components/forms/input/Input';
+import InputWithModal from '../../components/forms/InputWithModal/InputWithModal';
+import { InputMsgErro } from '../../utils';
 
-export default function MeuPerfil(props) {
-    const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
-    const [dadosUsuario, setDadosUsuario] = useState({})
+export default function MeuPerfil() {
+    const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"];
+    const [dadosUsuario, setDadosUsuario] = useState({});
+    const [reload, setReload] = useState(true);
+    const { signOut } = useContext(AuthContext);
+    const [invalidText, setInvalidText] = useState({});
+    const modalRef = useRef(null);
 
-    const [isLocked, setIsLocked] = useState(true);
-    // FUNÇÃO PARA DESTRAVAR INPUTS
-    const handleUnlock = () => {
-        setIsLocked(!isLocked);
-    };
-
-    const handleSair = (e) => {
-        e.preventDefault()
-        localStorage.clear()
-        window.location.href = "http://localhost:3000/"
-    }
 
     useEffect(() => {
         const fetchDadosUsuario = async () => {
             fetch(`http://localhost:3005/api/usuario/${id}`)
-                .then((res) => { return res.json() })
-                .then((resp) => setDadosUsuario(resp))
-
+                .then((res) => res.json())
+                .then((resp) => setDadosUsuario(resp));
         };
 
         fetchDadosUsuario();
-    }, [id]);
+    }, [id, reload]);
 
-    const handleTrocarSenha = (e) => {
-        const formulario = document.getElementById('formEmail')
-        e.preventDefault()
-        const formData = new FormData(formulario)
-        const data = Object.fromEntries(formData)
+    // Inicializa o modal de senha
+    useEffect(() => {
+        if (modalRef.current) {
+            new Modal(modalRef.current)
+        }
+    }, []);
+
+    const resetStyles = (id) => {
+        document.getElementById(id)?.style?.setProperty('border', '', 'important');
+        document.getElementById(id)?.style?.setProperty('outline', '', 'important');
+        setInvalidText({});
+    };
+
+    const getOrCreateSenhaModal = () => {
+        return Modal.getOrCreateInstance(modalRef.current);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = {};
+        let erros = {};
+
+        data.id = dadosUsuario.id_usuario;
+        data.nome = dadosUsuario.nome;
+        data.email = dadosUsuario.email;
+        data.senhaAnterior = event.target.senha.value;
+        data.senhaNova = event.target.senhaNova.value;
+        data.confirmar = event.target.confirmar.value;
+
+        // Validações
+        if (data.senhaAnterior === '') {
+            erros.senha = InputMsgErro('senha', true, 'Você precisa informar a senha atual');
+            setInvalidText(erros);
+            return;
+        }
+        if (data.senhaNova === '') {
+            erros.senhaNova = InputMsgErro('senhaNova', true, 'Digite uma senha');
+            setInvalidText(erros);
+            return;
+        }
+        if (data.confirmar === '') {
+            erros.confirmar = InputMsgErro('senhaConfirmar', true, 'Digite sua senha novamente');
+            setInvalidText(erros);
+            return;
+        } else if (data.senhaNova !== data.confirmar) {
+            erros.confirmar = InputMsgErro('senhaConfirmar', true, 'As senhas não coincidem');
+            setInvalidText(erros);
+            return;
+        }
+
 
         fetch(`http://localhost:3005/api/usuario/${id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
-
-        })
-        console.log(data)
-    }
+            body: JSON.stringify(data),
+        }).then((resp) => {
+            if (resp.status === 200) {
+                console.log(resp.status)
+                setReload(!reload);
+                getOrCreateSenhaModal().hide();
+                resetStyles('senha');
+                resetStyles('senhaNova');
+                resetStyles('senhaConfirmar');
+                erros.sucesso = InputMsgErro('card-senha', 'sucesso', 'Sua senha foi alterada!');
+                setInvalidText(erros)
+                setTimeout(() => {
+                    setInvalidText('')
+                }, 4000)
+            } else {
+                setInvalidText({
+                    senha: InputMsgErro('senha', true, 'Senha atual incorreta')
+                });
+            }
+        });
+    };
 
     return (
         <>
             <Header />
+            <main className={`card ${styles.main}`}>
+                <h1 className={`pb-4 ${styles.h1}`}>Meu Perfil</h1>
+                
+                <div className='card col-8 col-lg-6 p-4 mx-auto my-2'>
+                    <InputWithModal 
+                        name='nome' 
+                        id='nome' 
+                        dadosUsuario={dadosUsuario} 
+                        label='Nome' 
+                        tituloModal='Alterar nome' 
+                        setReload={setReload} 
+                        reload={reload} 
+                    />
+                </div>
+                
+                <div className='card col-8 col-lg-6 p-4 mx-auto my-2'>
+                    <InputWithModal 
+                        name='email' 
+                        id='email' 
+                        dadosUsuario={dadosUsuario} 
+                        label='Email' 
+                        tituloModal='Alterar e-mail' 
+                        setReload={setReload} 
+                        reload={reload} 
+                    />
+                </div>
 
-            <main className={`card`}>
-                <h1 className={`${styles.h1}`}>Meu Perfil</h1>
-                <section className={`${styles.section}`}>
+                {/* Modal de Senha */}
+                <div className='card col-8 col-lg-6 p-4 mx-auto my-2' id='card-senha'>
+                <label className="ms-3 mb-1 fw-medium fs-5">Senha</label>
+                    <div className="input-group mb-3">
+                        <input 
+                            type='password' 
+                            className="form-control" 
+                            placeholder="••••••••••" 
+                            disabled 
+                        />
+                        <button 
+                            className="btn btn-outline-secondary" 
+                            type="button"
+                            onClick={() => {
+                                resetStyles('senha');
+                                resetStyles('senhaNova');
+                                resetStyles('senhaConfirmar');
+                                getOrCreateSenhaModal().show();
+                            }}
+                        >
+                            Alterar
+                        </button>
+                    </div>
 
-                    <button className={`btn ms-auto d-flex ${styles.unlock_input} ${styles.button}`} onClick={handleUnlock}><img src='../../img/infocash-brand/svg/infocash-doublearrow-black.svg' alt='' height={20} /></button>
-
-                    <form id='formEmail' onSubmit={handleTrocarSenha}>
-
-                        <label htmlFor="InputNome" className={`form-label ${styles.label}`}>Nome de Usuário</label>
-                        <div className="input-group mb-3">
-                            <input type="text" name='nome' placeholder='Seu nome' className="form-control" id="InputNome" aria-describedby="emailHelp" disabled={isLocked} defaultValue={dadosUsuario['nome']} required/>
+                    <div 
+                        className="modal fade" 
+                        id='modal-senha' 
+                        aria-hidden="true" 
+                        ref={modalRef}
+                    >
+                        <div className="modal-dialog modal-dialog-centered modal-lg">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">Alterar Senha</h5>
+                                    <button 
+                                        type="button" 
+                                        className="btn-close" 
+                                        onClick={() => getOrCreateSenhaModal().hide()}
+                                    ></button>
+                                </div>
+                                <div className="modal-body">
+                                    <form onSubmit={handleSubmit}>
+                                        <Input
+                                            type='password'
+                                            id='senha'
+                                            name='senha'
+                                            label='Senha Atual'
+                                            invalidText={invalidText.senha}
+                                            onChange={() => resetStyles('senha')}
+                                        />
+                                        <Input
+                                            type='password'
+                                            id='senhaNova'
+                                            name='senhaNova'
+                                            label='Nova Senha'
+                                            invalidText={invalidText.senhaNova}
+                                            onChange={() => resetStyles('senhaNova')}
+                                        />
+                                        <Input
+                                            type='password'
+                                            id='senhaConfirmar'
+                                            name='confirmar'
+                                            label='Confirmar Nova Senha'
+                                            invalidText={invalidText.confirmar}
+                                            onChange={() => resetStyles('senhaConfirmar')}
+                                        />
+                                        <div className="mt-4">
+                                            <SubmitButton 
+                                                value='Salvar Alterações' 
+                                                className='w-100'
+                                            />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-
-                        <label htmlFor="InputEmail" className={`form-label ${styles.label}`}>Email</label>
-                        <div className="input-group mb-3">
-                            <input type="email" name='email' placeholder='exemplo@email.com' className="form-control" id="InputEmail" aria-describedby="emailHelp" disabled={isLocked} defaultValue={dadosUsuario['email']} required/>
-                        </div>
-
-                        <label htmlFor="InputSenha1" className={`form-label ${styles.label}`}>Senha Anterior</label>
-                        <div className="input-group mb-3">
-                            <input type="password" name='senhaAnterior' placeholder='°°°°°°°°°°°' className="form-control" id="InputSenha1" aria-describedby="emailHelp" disabled={isLocked} required/>
-                        </div>
-
-                        <label htmlFor="InputSenha2" className={`form-label ${styles.label}`}>Nova senha</label>
-                        <div className="input-group mb-3">
-                            <input type="password" name='senhaNova' placeholder='°°°°°°°°°°°' className="form-control" id="InputSenha2" aria-describedby="emailHelp" disabled={isLocked} required/>
-                        </div>
-
-                        <label htmlFor="InputSenha3" className={`form-label ${styles.label}`}>Confirmar nova senha</label>
-                        <div className="input-group mb-3">
-                            <input type="password" name='confirmar' placeholder='°°°°°°°°°°°' className="form-control" id="InputSenha3" aria-describedby="emailHelp" disabled={isLocked} required/>
-                        </div>
-
-                        <button className={`btn btn-outline-dark ${styles.button}`} type="submit" disabled={isLocked}>Alterar</button>
-                    </form>
-                </section>
-
-                <form onSubmit={handleSair}>
-                    <button type='submit' className='btn btn-primary'>Sair</button>
-                </form>
-
-
+                    </div>
+                    <span className={styles.validMSG}>{invalidText.sucesso}</span>
+                </div>
+                
+                <div className='exit'>
+                    <SubmitButton value='Sair' onClick={signOut} />
+                </div>
             </main>
         </>
-    )
+    );
 }

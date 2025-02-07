@@ -28,41 +28,34 @@ export const AuthProvider = ({ children }) => {
             },
             body: JSON.stringify(data),
         })
-            .then((response) => {
-                if (response.status === 401) {
-                    console.log(response.status)
-                    return false
-                }
-                return response.json();
-            })
-            .then((data) => {
-                if (data.error) {
-                    alert(data.error);
-                } else {
-                    setUser(data);
-                    localStorage.setItem("@Auth:user", JSON.stringify(data));
-                    localStorage.setItem("@Auth:token", data.token);
-                    return true;
-                }
-            })
-            .catch((error) => {
-                console.error("Erro ao realizar login:", error);
-                return false;
-            });
+        .then((response) => {
+            if (response.status === 401) {
+                return false
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                setUser(data);
+                localStorage.setItem("@Auth:user", JSON.stringify(data));
+                localStorage.setItem("@Auth:token", data.token);
+                return true
+            }
+        })
     };
 
 
-    const singOut = (e) => {
+    const signOut = (e) => {
         e.preventDefault()
-        console.log('deslogando')
-        sessionStorage.clear()
+        localStorage.clear()
         setUser(null);
-        console.log(user)
-        window.location.href="http://192.168.1.200:3000/"
+        window.location.href="http://localhost:3000/"
     };
 
     return (
-        <AuthContext.Provider value={{ signed: !!user, user, signIn, singOut, }}>
+        <AuthContext.Provider value={{ signed: !!user, user, signIn, signOut, }}>
             {children}
         </AuthContext.Provider>
     );

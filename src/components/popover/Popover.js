@@ -45,8 +45,6 @@ export default function Popover({setLimiteMensal}) {
         const data = Object.fromEntries(formData)
         console.log(data)
 
-        setLimiteMensal(formData.get('limite_mensal'))
-
         fetch(`http://localhost:3005/api/conta/meta/${id["id_usuario"]}`, {
             method: 'PUT',
             headers: {
@@ -54,9 +52,9 @@ export default function Popover({setLimiteMensal}) {
             },
             body: JSON.stringify(data)
         })
-        .then((res) => console.log(res),
+        .then(() => {setLimiteMensal(data['meta']);
             
-            formulario.reset())
+            formulario.reset()})
             
             
     }

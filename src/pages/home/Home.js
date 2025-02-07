@@ -4,54 +4,60 @@ import React, { useState, useEffect } from 'react';
 import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
 import HistoryCard from '../../components/historyCard/HistoryCard';
+import ApiErrorMsg from '../../components/apiErrorMsg/ApiErrorMsg';
 
 export default function Home() {
 
-  const [totalSaldo, setTotalSaldo] = useState(0);
-  const [totalEntrada, setTotalEntrada] = useState(0);
-  const [totalSaida, setTotalSaida] = useState(0);
   const [respostaAPI, setRespostaAPI] = useState([])
   const [reloadAPI, setReloadAPI] = useState(false)
   const [dadosUsuario, setDadosUsuario] = useState({})
+  const [registrosOrdenados, setRegistrosOrdenados] = useState([])
+  const [statusAPI, setStatusAPI] = useState('')
 
   const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
 
+  const ordenarRegistros = (res) => {
+    return [...res].sort((a, b) => {
+      const dateA = new Date(a.data);
+      const dateB = new Date(b.data);
+
+      if (dateB > dateA) return 1;
+      if (dateB < dateA) return -1;
+
+      return b.id_registro - a.id_registro;
+    });
+  };
+
   useEffect(() => {
+
+    fetch(`http://localhost:3005/api/conta/buscar/${id}`)
+      .then((res) => { 
+        
+        return res.json() })
+      .then((resp) => {setDadosUsuario(resp);
+            console.log(resp)}
+    )
+
     fetch(`http://localhost:3005/api/registro/${id}`)
       .then(
-        resposta => { return resposta.json() }
+        (resposta) => { 
+          setStatusAPI(resposta.status)
+          return resposta.json() }
       )
       .then(
-        res => {
-          setRespostaAPI(res)
-          console.log(res)
-
-          const entrada = res
-            .filter(operacao => operacao.tipo === 'entrada')
-            .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
-
-          const saida = res
-            .filter(operacao => operacao.tipo === 'saida')
-            .reduce((total, operacao) => total + parseFloat(operacao.valor), 0);
-
-
-          setTotalEntrada(entrada);
-          setTotalSaida(saida);
-          setTotalSaldo(entrada - saida);
-
-          fetch(`http://localhost:3005/api/conta/buscar/${id}`)
-            .then((res) => { return res.json() })
-            .then((resp) => {setDadosUsuario(resp);
-                  console.log(resp)}
-          )
-
+        (res) => {
+          setRespostaAPI(res);
+          const sorted = ordenarRegistros(res);
+          setRegistrosOrdenados(sorted);
         }
       )
       .catch(err => console.log(err))
-  }, [reloadAPI])
-
-  return (
+      
+      console.log(statusAPI)
+    }, [reloadAPI, id])
+    return (
     <>
+      {statusAPI === 404 && <ApiErrorMsg status={statusAPI}/>}
       <Header />
       <div className={`mt-4 ${styles.upperBody}`}>
 
@@ -86,7 +92,8 @@ export default function Home() {
       <div className={` ${styles.history_container}`}>
         <h2 className='p-4'>Registros</h2>
         <div className={`d-flex ${styles.history}`}>
-          {respostaAPI.map(( operacao, index) => (new Date(operacao.data).getTime() <= new Date().getTime()) && <HistoryCard key={index} operacao={operacao} />)}
+          {(registrosOrdenados.length !== 0) && registrosOrdenados.map(( operacao, index) => (new Date(operacao.data).getTime() <= new Date().getTime()) ? <HistoryCard key={index} operacao={operacao} /> : false)}
+          {console.log(registrosOrdenados)}
         </div>
       </div>
     </>
