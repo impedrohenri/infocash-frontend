@@ -31,18 +31,22 @@ export default function Home() {
   useEffect(() => {
 
     fetch(`http://localhost:3005/api/conta/buscar/${id}`)
-      .then((res) => { 
-        
-        return res.json() })
-      .then((resp) => {setDadosUsuario(resp);
-            console.log(resp)}
-    )
+      .then((res) => {
+
+        return res.json()
+      })
+      .then((resp) => {
+        setDadosUsuario(resp);
+        console.log(resp)
+      }
+      )
 
     fetch(`http://localhost:3005/api/registro/${id}`)
       .then(
-        (resposta) => { 
+        (resposta) => {
           setStatusAPI(resposta.status)
-          return resposta.json() }
+          return resposta.json()
+        }
       )
       .then(
         (res) => {
@@ -52,33 +56,33 @@ export default function Home() {
         }
       )
       .catch(err => console.log(err))
-      
-      console.log(statusAPI)
-    }, [reloadAPI, id])
-    return (
+
+    console.log(statusAPI)
+  }, [reloadAPI, id])
+  return (
     <>
-      {statusAPI === 404 && <ApiErrorMsg status={statusAPI}/>}
+      {statusAPI === 404 && <ApiErrorMsg status={statusAPI} />}
       <Header />
       <div className={`mt-4 ${styles.upperBody}`}>
 
         <div className={`col-11 col-md-5 row m-3 mx-auto ${styles.mainValues} `}>
           <div className={`card mb-2 text-center ${styles.primaryValue}`}>
             <div className="card-body">
-              <h3 className="card-title">Saldo total</h3>
+              <h4 className="card-title">Saldo total</h4>
               <p className="card-text">R$ {dadosUsuario.saldo}</p>
             </div>
           </div>
 
           <div className={`card ${styles.secundaryValue}`}>
             <div className="card-body">
-              <h3 className="card-title">Entradas</h3>
+              <h4 className="card-title">Entradas</h4>
               <p className="card-text">R$ {dadosUsuario.renda}</p>
             </div>
           </div>
 
           <div className={`card ${styles.secundaryValue}`}>
             <div className="card-body">
-              <h3 className="card-title">Saídas</h3>
+              <h4 className="card-title">Saídas</h4>
               <p className="card-text">R$ {dadosUsuario.gasto}</p>
             </div>
           </div>
@@ -89,10 +93,21 @@ export default function Home() {
         <GraficoMeta respostaAPI={respostaAPI} />
       </div>
 
-      <div className={` ${styles.history_container}`}>
-        <h2 className='p-4'>Registros</h2>
-        <div className={`d-flex ${styles.history}`}>
-          {(registrosOrdenados.length !== 0) && registrosOrdenados.map(( operacao, index) => (new Date(operacao.data).getTime() <= new Date().getTime()) ? <HistoryCard key={index} operacao={operacao} /> : false)}
+      <div className={` ${styles.registros_container}`}>
+        <div className='d-flex justify-content-between'>
+          <h2 className='p-4'>Registros</h2>
+          <div class="dropdown">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Filtrar
+            </button>
+            <ul class="dropdown-menu">
+            </ul>
+          </div>
+        </div>
+        <div className={`d-flex ${styles.registros}`}>
+          {(registrosOrdenados.length !== 0) && registrosOrdenados.map((operacao, index) => (new Date(operacao.data).getTime() <= new Date().getTime()) ?
+            <HistoryCard key={index} operacao={operacao} /> :
+            false)}
           {console.log(registrosOrdenados)}
         </div>
       </div>

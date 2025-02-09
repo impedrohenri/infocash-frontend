@@ -1,4 +1,5 @@
 .card_container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,7 +40,7 @@
 }
 
 .card_title {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   font-weight: bold;
   margin: 0;
   color: #333;
@@ -52,11 +53,37 @@
 
 .valor{
   display: block;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: bold;
   margin: 8px 0;
   color: #333;
   margin-left: auto;
+}
+
+.card_menu{
+  position: relative;
+}
+
+.menu_icon{
+  transition: 300ms;
+  padding: 0 2px;
+}
+.menu_icon:hover{
+  background-color: #eee;
+  box-shadow: 0 0 4px #ddd;
+  border-radius: 100%;
+}
+
+.menu_body{
+  position: absolute;
+  display: none;
+  background-color: rgba(255, 255, 255);
+  box-shadow: 0 0 4px #bbb;
+  transition: 400ms;
+  left: -90px;
+}
+.card_menu:hover .menu_body {
+  display: block;
 }
 
 .card_body p {

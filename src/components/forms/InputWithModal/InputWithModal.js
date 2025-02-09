@@ -51,6 +51,7 @@ export default function InputWithModal({ setReload, reload, name, id, ...props }
             body: JSON.stringify(data),
         })
         .then((resp) => {
+            console.log(resp.status)
             if (resp.status === 200) {
                 setReload(!reload);
                 // Fechar o modal corretamente
@@ -121,7 +122,7 @@ export default function InputWithModal({ setReload, reload, name, id, ...props }
                                     invalidText={invalidText[name]}
                                     onChange={() => resetStyles(id)}
                                 />
-                                <SubmitButton className='mt-0 ms-auto' value='Salvar' />
+                                <SubmitButton className='w-100 mt-0 ms-auto' value='Salvar' />
                             </form>
                         </div>
                     </div>

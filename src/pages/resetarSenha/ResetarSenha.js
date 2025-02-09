@@ -11,10 +11,10 @@ export default function ResetarSenha() {
     const erros = {}
 
     const resetStyles = (id) => {
-        document.getElementById(id)?.style?.setProperty('border', '', 'important');
-        document.getElementById(id)?.style?.setProperty('outline', '', 'important');
-        setInvalidText({});
-    };
+        document.getElementById(id).style.border = ''
+        document.getElementById(id).style.outline = ''
+        setInvalidText({})
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();

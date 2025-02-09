@@ -1,0 +1,136 @@
+.botaoDiv {
+    margin-top: 50px;
+}
+
+.modal_Body::-webkit-scrollbar {
+    width: 9px;
+}
+
+.modal_Body::-webkit-scrollbar-thumb {
+    background-color: rgb(190, 190, 190);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    background-clip: content-box;
+}
+
+input[type=radio] {
+    opacity: 0;
+    width: 1px;
+}
+
+.tipoOperacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    border: 3px solid var(--mColor-medium);
+    background-color: white;
+    color: var(--mColor-deep);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 22%;
+    text-align: center;
+
+
+}
+
+.tipoOperacao:has(input:checked) {
+    background-color: var(--mColor-deep);
+    border: 3px solid var(--mColor-deep);
+    color: rgb(255, 255, 255);
+}
+
+.divRadios {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border-radius: 15px;
+
+    .recorrencia {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        border-radius: 8px;
+        border: 2px solid rgb(200, 200, 200);
+        background-color: white;
+        color: rgb(50, 50, 50);
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        width: 47%;
+        text-align: center;
+    }
+
+    .recorrencia:hover {
+        border-color: var(--mColor-light);
+        background-color: var(--mColor-lightest);
+    }
+
+    .recorrencia:has(input:checked) {
+        border-color: var(--mColor-deep);
+        background-color: var(--mColor-lightest);
+        color: var(--mColor-bright);
+    }
+
+    input {
+        display: none;
+    }
+}
+
+.periodos_container {
+    margin-top: 20px;
+}
+
+.periodos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 50px;
+    background-color: white;
+    color: var(--mColor-dark);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 0 0;
+    position: relative;
+}
+
+.periodos::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--mColor-light);
+    border-radius: 50%;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 330ms;
+    color: var(--mColor-deep);
+}
+
+.periodos:hover {
+    border-color: var(--mColor-medium);
+    background-color: var(--mColor-lightest);
+}
+
+.periodos:has(input:checked) {
+    background-color: var(--mColor-deep);
+    border-color: var(--mColor-deep);
+    color: white;
+
+}
+
+.periodos:has(input:checked)::before {
+    content: '✔';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    background-color: white;
+}

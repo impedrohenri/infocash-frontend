@@ -35,10 +35,10 @@ export default function MeuPerfil() {
     }, []);
 
     const resetStyles = (id) => {
-        document.getElementById(id)?.style?.setProperty('border', '', 'important');
-        document.getElementById(id)?.style?.setProperty('outline', '', 'important');
-        setInvalidText({});
-    };
+        document.getElementById(id).style.border = ''
+        document.getElementById(id).style.outline = ''
+        setInvalidText({})
+    }
 
     const getOrCreateSenhaModal = () => {
         return Modal.getOrCreateInstance(modalRef.current);
@@ -89,9 +89,6 @@ export default function MeuPerfil() {
                 console.log(resp.status)
                 setReload(!reload);
                 getOrCreateSenhaModal().hide();
-                resetStyles('senha');
-                resetStyles('senhaNova');
-                resetStyles('senhaConfirmar');
                 erros.sucesso = InputMsgErro('card-senha', 'sucesso', 'Sua senha foi alterada!');
                 setInvalidText(erros)
                 setTimeout(() => {

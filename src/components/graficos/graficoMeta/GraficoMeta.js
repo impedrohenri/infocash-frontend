@@ -20,7 +20,7 @@ export default function GraficoMeta(props) {
     })
     .then((data) => {
         console.log(data);
-        setLimiteMensal(parseInt(data));
+        setLimiteMensal(parseFloat(data).toFixed(2));
     })
   }, [])
 
@@ -40,7 +40,7 @@ export default function GraficoMeta(props) {
 
       for (let cat of categorias) {
         let lista = []
-        resJSON.forEach(operacao => (new Date(operacao.data).getTime() <= new Date().getTime()) &&  (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseInt(operacao.valor)));
+        resJSON.forEach(operacao => (new Date(operacao.data).getTime() <= new Date().getTime()) &&  (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseFloat(operacao.valor)));
         data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0))
       };
 

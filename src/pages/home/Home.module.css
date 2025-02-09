@@ -24,11 +24,11 @@
     flex-direction: column;
 }
 
-.history_container{
+.registros_container{
     width: 92vw;
     margin-inline: auto;
 }
-.history{
+.registros{
     flex-wrap: wrap;
 
 }
