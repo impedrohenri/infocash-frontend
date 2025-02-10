@@ -84,7 +84,7 @@ export default function Home() {
         <GraficoMeta respostaAPI={respostaAPI} />
       </div>
 
-      <ListagemRegistros respostaAPI={respostaAPI} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}/>
+      <ListagemRegistros respostaAPI={respostaAPI} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI} statusAPI={statusAPI}/>
     </>
   );
 }

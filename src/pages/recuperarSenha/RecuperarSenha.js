@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom'
 import styles from './RecuperarSenha.module.css'
 import SubmitButton from '../../components/forms/submitButton/SubmitButton';
+import { useState } from 'react';
+import { Modal } from 'react-bootstrap';
 
 export default function RecuperarSenha() {
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +23,15 @@ export default function RecuperarSenha() {
 			},
 			body: JSON.stringify(data)
 		})
+        .then((resposta) => {
+            if (resposta.status === 200){
+                handleShow()
+                setTimeout(() => {
+                    handleClose()
+                }, 8000)
+            }
+
+        })
 	}
 
     return (
@@ -43,6 +57,13 @@ export default function RecuperarSenha() {
                 </form>
             </div>
         </div>
+
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>E-mail enviado</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='fs-5'>Um link foi enviado para o seu e-mail com as instruções para redefinição de senha.</Modal.Body>
+        </Modal>
         </main>
     )
 }

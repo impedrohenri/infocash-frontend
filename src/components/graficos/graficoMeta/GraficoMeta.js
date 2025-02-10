@@ -1,22 +1,31 @@
 import styles from './GraficoMeta.module.css';
 import Chart from 'chart.js/auto';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Popover from '../../popover/Popover';
+import { AuthContext } from '../../../contexts/AuthContext';
+
+
 
 export default function GraficoMeta(props) {
-  const [limiteMensal, setLimiteMensal] = useState(0);
-  const [limiteRestante, setLimiteRestante] = useState(0);
-  const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"];
+
+  const [limiteMensal, setLimiteMensal] = useState(0)
+  const [limiteRestante, setLimiteRestante] = useState(0)
+  const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
+
 
   useEffect(() => {
     fetch(`http://localhost:3005/api/conta/meta/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
+    .then((res) => {
+        return res.json();
+    })
+    .then((data) => {
+        console.log(data);
         setLimiteMensal(parseFloat(data).toFixed(2));
-      });
-  }, [id]);
+    })
+  }, [])
 
   useEffect(() => {
+    // Filtra as categorias que possuem operações cadastradas
     const categoriasSaida = [
       ...new Set(
         props.respostaAPI
@@ -25,20 +34,27 @@ export default function GraficoMeta(props) {
       )
     ];
 
+    // Soma os gasto
     const dadosGrafico = (resJSON, categorias) => {
       let data = [];
+
       for (let cat of categorias) {
-        let lista = [];
-        resJSON.forEach(operacao => (new Date(operacao.data).getTime() <= new Date().getTime()) && (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseFloat(operacao.valor)));
-        data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0));
-      }
+        let lista = []
+        resJSON.forEach(operacao => (new Date(operacao.data).getTime() <= new Date().getTime()) &&  (operacao.categoria === cat) && (operacao.tipo === "saida") && lista.push(parseFloat(operacao.valor)));
+        data.push(lista.reduce((valorAnterior, valor) => (valorAnterior + valor), 0))
+      };
+
       return data;
-    };
+    }
 
     const calcularLimiteRestante = (dados, limite) => {
       const totalGasto = dados.reduce((acc, valor) => parseFloat(acc + valor), 0);
       return Math.max(0, parseFloat(limite - totalGasto));
     };
+
+
+
+
 
     const ctx = document.getElementById('grafico');
     if (Chart.getChart('grafico')) Chart.getChart('grafico').destroy();
@@ -46,23 +62,25 @@ export default function GraficoMeta(props) {
     const dadosCategorias = dadosGrafico(props.respostaAPI, categoriasSaida);
     setLimiteRestante(calcularLimiteRestante(dadosCategorias, limiteMensal));
 
-    const chart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: ['Limite Restante', ...categoriasSaida],
+        labels: ['Limite Restante', ...categoriasSaida ],
         datasets: [
           {
             label: 'R$',
             data: [limiteRestante, ...dadosCategorias],
             backgroundColor: [
-              'rgb(150, 150, 150)',
+              'rgb(150, 150, 150)', // Cor para "Limite Restante"
               'rgb(66, 133, 244)',
-              'rgb(59, 68, 55)',
+              'rgb(219, 68, 55)',
               'rgb(244, 180, 0)',
               'rgb(15, 157, 88)',
               'rgb(171, 71, 188)',
               'rgb(255, 112, 67)',
               'rgb(0, 172, 193)'
+
+              
             ],
             hoverOffset: 10
           }
@@ -71,6 +89,7 @@ export default function GraficoMeta(props) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        aspectRatio: 3,
         plugins: {
           legend: {
             position: 'bottom',
@@ -82,14 +101,17 @@ export default function GraficoMeta(props) {
         },
         layout: {
           autoPadding: true
+
         }
       }
     });
 
+    // PROGRESS BAR (LIMITE E GASTO)
+
     const progressCtx = document.getElementById('progressBar');
     if (Chart.getChart('progressBar')) Chart.getChart('progressBar').destroy();
 
-    const progressChart = new Chart(progressCtx, {
+    new Chart(progressCtx, {
       type: 'bar',
       data: {
         labels: ['Gastos vs Limite'],
@@ -115,7 +137,7 @@ export default function GraficoMeta(props) {
           title: {
             display: true,
             text: ''
-          },
+        },
           legend: {
             position: 'bottom',
           }
@@ -123,7 +145,7 @@ export default function GraficoMeta(props) {
         scales: {
           x: {
             ticks: {
-              display: false
+              display: false // Desativa os números no eixo x
             },
             stacked: true,
             grid: {
@@ -131,12 +153,12 @@ export default function GraficoMeta(props) {
               display: false
             },
             border: {
-              display: false
+              display: false // Remove a linha da borda do eixo Y
             }
           },
           y: {
             ticks: {
-              display: false
+              display: false // Desativa os números no eixo x
             },
             stacked: true,
             grid: {
@@ -144,54 +166,46 @@ export default function GraficoMeta(props) {
               display: false
             },
             border: {
-              display: false
-            }
+              display: false // Remove a linha da borda do eixo Y
+              }
           }
         }
       }
     });
 
-    const handleResize = () => {
-      chart.resize();
-      progressChart.resize();
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      chart.destroy();
-      progressChart.destroy();
-    };
-
   }, [props.respostaAPI, limiteMensal, limiteRestante]);
 
   return (
-    <div className={`card col-11 col-lg-7 row m-3 mx-auto ${styles.cardGrafico}`}>
+    <div className={`card col-11 col-md-6  row m-3 mx-auto ${styles.cardGrafico}`}>
       <div className={`d-flex justify-content-between ${styles.title}`}>
         <h5 className='m-0'>Limite Mensal</h5>
         <div className='d-flex'>
           <h4 className='m-0'>R$ {limiteMensal}</h4>
-          <Popover setLimiteMensal={setLimiteMensal} />
+          <Popover setLimiteMensal={setLimiteMensal}/>
+
+
         </div>
       </div>
 
       <div className={`card-body d-flex ${styles.card_Body}`}>
-        <div className={`col-12 col-md-6 d-flex align-items-center justify-content-center ${styles.canvaDiv}`}>
-          {props.respostaAPI.length !== 0 ?
-            (<canvas className={`${styles.doughnutGrafico}`} id="grafico"></canvas>) : (<img src='/img/icons/grafico_icon.svg' height={160} alt=''/>)}
+        <div className={`col-12 col-md-7 ${styles.canvaDiv}`}>
+          {props.respostaAPI.length !== 0 &&
+            (<canvas className={`${styles.doughnutGrafico}`} id="grafico"></canvas>)}
         </div>
 
-        <div className={`col-12 col-md-6 ${styles.limit_container}`}>
+        <div className={`col-12 col-md-5 ${styles.limit_container}`}>
           <div className={`${styles.limite_mensal}`}>
             <span>Limite restante: </span>
             <span>R$ {limiteRestante}</span>
           </div>
-          <div>
           <canvas id="progressBar" className={`${styles.progressBar}`}></canvas>
-          </div>
         </div>
       </div>
+
     </div>
+
+
   );
+
+
 }

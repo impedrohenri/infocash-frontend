@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, Dropdown, Placeholder } from "react-bootstrap";
 import HistoryCard from "../historyCard/HistoryCard";
 
-export default function ListagemRegistros({ respostaAPI, setReloadAPI, reloadAPI }) {
+export default function ListagemRegistros({statusAPI, respostaAPI, setReloadAPI, reloadAPI }) {
     const [filtroSelecionado, setFiltroSelecionado] = useState('passado'); // Estado para o filtro selecionado
     const [registrosFiltrados, setRegistrosFiltrados] = useState([]); // Estado para os registros filtrados
 
@@ -65,7 +65,7 @@ export default function ListagemRegistros({ respostaAPI, setReloadAPI, reloadAPI
                 </Dropdown>
             </div>
             <div className={`d-flex ${styles.registros}`}>
-                {respostaAPI.length !== 0 ?
+                {((respostaAPI.length !== 0)) ?
                     registrosFiltrados.map((operacao) => (
                         <HistoryCard
                             key={operacao.id_registro}
