@@ -21,8 +21,11 @@ export default function Home() {
 
     // Aqui busca os dados do usuário e seta no state
     fetch(`http://localhost:3005/api/conta/buscar/${id}`)
-      .then((res) => {
-        return res.json()
+      .then((resposta) => {
+        if(resposta.status === 404){
+          setStatusAPI(resposta.status)
+        }
+        return resposta.json()
       })
       .then((resp) => {
         setDadosUsuario(resp);
@@ -30,10 +33,12 @@ export default function Home() {
       )
 
     // Aqui busca os registros e seta no state já ordenado por data
-    fetch(`http://localhost:3005/api/registro/${id}`)
+    fetch(`http://localhost:3005/api/registro/${id}7`)
       .then(
         (resposta) => {
-          setStatusAPI(resposta.status)
+          if(resposta.status === 404){
+            setStatusAPI(resposta.status)
+          }
           return resposta.json()
         }
       )

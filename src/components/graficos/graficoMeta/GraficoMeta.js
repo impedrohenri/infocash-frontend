@@ -177,9 +177,9 @@ export default function GraficoMeta(props) {
       </div>
 
       <div className={`card-body d-flex ${styles.card_Body}`}>
-        <div className={`col-12 col-md-6 ${styles.canvaDiv}`}>
-          {props.respostaAPI.length !== 0 &&
-            (<canvas className={`${styles.doughnutGrafico}`} id="grafico"></canvas>)}
+        <div className={`col-12 col-md-6 d-flex align-items-center justify-content-center ${styles.canvaDiv}`}>
+          {props.respostaAPI.length !== 0 ?
+            (<canvas className={`${styles.doughnutGrafico}`} id="grafico"></canvas>) : (<img src='/img/icons/grafico_icon.svg' height={160} alt=''/>)}
         </div>
 
         <div className={`col-12 col-md-6 ${styles.limit_container}`}>

@@ -1,31 +1,30 @@
-export default function ApiErrorMsg(props) {
-    return (
-        <>
-            <div
-                className="modal fade show"
-                id="exampleModal"
-                tabIndex="-1"
-                aria-labelledby="exampleModalLabel"
-                style={{ display: 'block' }}
-            >
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-4" id="exampleModalLabel">Erro {props.status}</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => {document.getElementById('exampleModal').style.display = 'none'; document.querySelector('.modal-backdrop').remove();}}></button>
-                        </div>
-                        <div className="modal-body fs-6">
-                            Alguns recursos podem estar temporariamente indisponíveis.
-                        </div>
-                        <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"  onClick={() => {document.getElementById('exampleModal').style.display = 'none'; document.querySelector('.modal-backdrop').remove();}}> Fechar </button>
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+function ApiErrorMsg(props) {
+  const [show, setShow] = useState(true);
 
-            {/* Overlay do modal (backdrop) */}
-            <div className="modal-backdrop fade show"></div></>
-    )
+  const handleClose = () => setShow(false);
+
+  return (
+    <>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className='text-danger'>Erro {props.status} </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+            <p className='fs-5 fw-medium'>Não foi possível carregar todos os dados do servidor.</p>
+            <span>Alguns recursos podem estar indisponíveis.</span>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            OK
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
+
+export default ApiErrorMsg;

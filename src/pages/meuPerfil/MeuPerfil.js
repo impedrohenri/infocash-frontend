@@ -184,7 +184,7 @@ export default function MeuPerfil() {
                     <div>
 
 
-                        <Modal aria-labelledby="modalDeletarConta" size="lg" show={showDeletarModal} onHide={handleCloseDeletarModal}>
+                        <Modal aria-labelledby="modalDeletarConta" size="lg" show={showDeletarModal} onHide={handleCloseDeletarModal} centered>
                             <Modal.Header id='modalDeletarConta' closeButton>
                                 <Modal.Title className='gap-2'><img src='/img/icons/card_delete.png' height='30' alt='' className='me-2' />Deletar conta</Modal.Title>
                             </Modal.Header>

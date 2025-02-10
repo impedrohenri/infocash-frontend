@@ -37,7 +37,7 @@ export default function HistoryCard({ operacao, reloadAPI, setReloadAPI }) {
 
                 </div>
                 <div className={`${styles.card_body}`}>
-                    <span className={`${styles.valor}`}>R$ {parseFloat(operacao.valor).toFixed(2)}</span>
+                    
                     {/* Categoria e subcategoria */}
                     <p className={`${styles.categoria}`}>
                         <strong>Categoria:</strong> {operacao.categoria} ( {operacao.subcategoria} )
@@ -46,6 +46,7 @@ export default function HistoryCard({ operacao, reloadAPI, setReloadAPI }) {
                     <p className={`${styles.data}`}>
                         <strong>Data:</strong> {dataFormatada}
                     </p>
+                    <div className={`d-flex ms-auto w-100 justify-content-end ${styles.valor}`}><span>R$ {parseFloat(operacao.valor).toFixed(2)}</span></div>
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import styles from './ListagemRegistros.module.css';
 import { useEffect, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import { Card, Dropdown, Placeholder } from "react-bootstrap";
 import HistoryCard from "../historyCard/HistoryCard";
 
 export default function ListagemRegistros({ respostaAPI, setReloadAPI, reloadAPI }) {
@@ -65,12 +65,30 @@ export default function ListagemRegistros({ respostaAPI, setReloadAPI, reloadAPI
                 </Dropdown>
             </div>
             <div className={`d-flex ${styles.registros}`}>
-                {registrosFiltrados.map((operacao) => (
-                    <HistoryCard
-                        key={operacao.id_registro}
-                        operacao={operacao} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}
-                    />
-                ))}
+                {respostaAPI.length !== 0 ?
+                    registrosFiltrados.map((operacao) => (
+                        <HistoryCard
+                            key={operacao.id_registro}
+                            operacao={operacao} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}
+                        />
+                    )) :
+                    [1, 2, 3].map((i) => (
+                        <div className='col-12 col-lg-4 col-md-6 p-2'>
+                        <Card className='p-3 col-12'>
+                            <Card.Body>
+                                <Placeholder as={Card.Title} animation="glow">
+                                    <Placeholder xs={6} />
+                                </Placeholder>
+                                <Placeholder as={Card.Text} animation="glow">
+                                    <Placeholder xs={5} /> <Placeholder xs={3} /> <Placeholder xs={4} />{' '}
+                                    <Placeholder xs={3} /> <Placeholder xs={6} />
+                                </Placeholder>
+                                <Placeholder.Button variant="secondary" xs={4} className='d-flex ms-auto py-3 my-0' />
+                            </Card.Body>
+                        </Card>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );
