@@ -1,14 +1,14 @@
 import { Button, Modal } from 'react-bootstrap';
-import { AuthContext } from '../../contexts/AuthContext';
+
 import FormRegistro from '../forms/formRegistro/FormRegistro';
-import Input from '../forms/input/Input'
+
 import styles from './ModalTrasacao.module.css'
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import SubmitButton from '../forms/submitButton/SubmitButton';
 
 
 
-export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
+export default function ModalTrasacao({ setReloadAPI, reloadAPI }) {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -41,8 +41,8 @@ export default function ModalTrasacao({ URL_API, setReloadAPI, reloadAPI }) {
 	return (
 		<>
 			<div className='mt-4 pt-4 ps-0 '>
-				<Button variant="secondary" onClick={handleShow} className='d-flex align-items-center'>
-					<img src='/img/icons/add_icon.png' height={25} className='me-2'/> Registro
+				<Button variant="secondary" onClick={handleShow} className='d-flex align-items-center p-2 px-3 '>
+					<img src='/img/icons/add_icon.png' height={25} className='me-2' alt=''/> Registro
 				</Button>
 			</div>
 

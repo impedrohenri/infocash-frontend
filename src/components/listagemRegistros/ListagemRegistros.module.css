@@ -1,0 +1,8 @@
+.registros_container{
+    width: 92vw;
+    margin-inline: auto;
+}
+.registros{
+    flex-wrap: wrap;
+
+}

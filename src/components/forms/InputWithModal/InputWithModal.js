@@ -11,10 +11,10 @@ export default function InputWithModal({ setReload, reload, name, id, ...props }
     const [invalidText, setInvalidText] = useState({});
 
     const resetStyles = (id) => {
-        document.getElementById(id)?.style?.setProperty('border', '', 'important');
-        document.getElementById(id)?.style?.setProperty('outline', '', 'important');
-        setInvalidText({});
-    };
+        document.getElementById(id).style.border = ''
+        document.getElementById(id).style.outline = ''
+        setInvalidText({})
+    }
 
     const getOrCreateModal = () => {
         return Modal.getOrCreateInstance(modalRef.current); // Sempre retorna uma instância válida
@@ -34,12 +34,6 @@ export default function InputWithModal({ setReload, reload, name, id, ...props }
         }
 
         // Prepara os dados para a requisição
-        data.id = dadosUsuario.id_usuario;
-        data.nome = dadosUsuario.nome;
-        data.email = dadosUsuario.email;
-        data.senhaAnterior = dadosUsuario.senha;
-        data.senhaNova = dadosUsuario.senha;
-        data.confirmar = dadosUsuario.senha;
         data[name] = novoValor;
 
         // Envia a requisição

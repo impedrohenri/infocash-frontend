@@ -49,9 +49,6 @@ export default function MeuPerfil() {
         const data = {};
         let erros = {};
 
-        data.id = dadosUsuario.id_usuario;
-        data.nome = dadosUsuario.nome;
-        data.email = dadosUsuario.email;
         data.senhaAnterior = event.target.senha.value;
         data.senhaNova = event.target.senhaNova.value;
         data.confirmar = event.target.confirmar.value;
@@ -108,7 +105,7 @@ export default function MeuPerfil() {
             <main className={`card ${styles.main}`}>
                 <h1 className={`pb-4 ${styles.h1}`}>Meu Perfil</h1>
                 
-                <div className='card col-8 col-lg-6 p-4 mx-auto my-2'>
+                <div className='card col-11 col-md-9 col-lg-6 p-4 mx-auto my-2'>
                     <InputWithModal 
                         name='nome' 
                         id='nome' 
@@ -120,7 +117,7 @@ export default function MeuPerfil() {
                     />
                 </div>
                 
-                <div className='card col-8 col-lg-6 p-4 mx-auto my-2'>
+                <div className='card col-11 col-md-9 col-lg-6 p-4 mx-auto my-2'>
                     <InputWithModal 
                         name='email' 
                         id='email' 
@@ -133,7 +130,7 @@ export default function MeuPerfil() {
                 </div>
 
                 {/* Modal de Senha */}
-                <div className='card col-8 col-lg-6 p-4 mx-auto my-2' id='card-senha'>
+                <div className='card col-11 col-md-9 col-lg-6 p-4 mx-auto my-2' id='card-senha'>
                 <label className="ms-3 mb-1 fw-medium fs-5">Senha</label>
                     <div className="input-group mb-3">
                         <input 
@@ -213,7 +210,7 @@ export default function MeuPerfil() {
                 </div>
                 
                 <div className='exit'>
-                    <SubmitButton value='Sair' onClick={signOut} />
+                    <SubmitButton value='Sair' onClick={signOut} className='mt-4 d-flex ms-auto px-4' />
                 </div>
             </main>
         </>

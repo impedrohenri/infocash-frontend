@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import SubmitButton from '../forms/submitButton/SubmitButton';
 import FormRegistro from '../forms/formRegistro/FormRegistro';
 
-export default function CardModal(props) {
+export default function CardModal({setReloadAPI, reloadAPI, ...props}) {
     const id_registro = props.id
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+
 
     const EditBody = ({id}) => {
 
@@ -26,6 +27,10 @@ export default function CardModal(props) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data)
+            })
+            .then(() => {
+                setReloadAPI(!reloadAPI)
+                handleClose()
             })
         }
 
@@ -49,6 +54,10 @@ export default function CardModal(props) {
                     'Content-Type': 'application/json',
                 }
             })
+            .then(() => {
+                setReloadAPI(!reloadAPI)
+                handleClose()
+            })
 
         }
 
@@ -70,7 +79,7 @@ export default function CardModal(props) {
     return (
         <>
             <button className='btn d-flex gap-3 align-items-center w-100' onClick={handleShow}>
-                <img src={props.src} height={20} /> {props.text}
+                <img src={props.src} height={20} alt=''/> {props.text}
             </button>
 
 
@@ -83,7 +92,7 @@ export default function CardModal(props) {
                 scrollable={true}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>{props.text} registro {props.id}</Modal.Title>
+                    <Modal.Title>{props.text} registro</Modal.Title>
                 </Modal.Header>
 
                 {

@@ -18,6 +18,7 @@
 
 .card_header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
   border-bottom: 1px solid #ddd;
@@ -44,6 +45,8 @@
   font-weight: bold;
   margin: 0;
   color: #333;
+  text-wrap: wrap;
+  word-break: break-all;
 }
 
 .card_body {
@@ -58,6 +61,7 @@
   margin: 8px 0;
   color: #333;
   margin-left: auto;
+  text-wrap: nowrap;
 }
 
 .card_menu{

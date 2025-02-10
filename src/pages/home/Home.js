@@ -3,33 +3,23 @@ import Header from "../../components/header/Header";
 import React, { useState, useEffect } from 'react';
 import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
-import HistoryCard from '../../components/historyCard/HistoryCard';
 import ApiErrorMsg from '../../components/apiErrorMsg/ApiErrorMsg';
+import ListagemRegistros from '../../components/listagemRegistros/ListagemRegistros';
 
 export default function Home() {
 
   const [respostaAPI, setRespostaAPI] = useState([])
   const [reloadAPI, setReloadAPI] = useState(false)
   const [dadosUsuario, setDadosUsuario] = useState({})
-  const [registrosOrdenados, setRegistrosOrdenados] = useState([])
   const [statusAPI, setStatusAPI] = useState('')
 
   const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
 
-  const ordenarRegistros = (res) => {
-    return [...res].sort((a, b) => {
-      const dateA = new Date(a.data);
-      const dateB = new Date(b.data);
-
-      if (dateB > dateA) return 1;
-      if (dateB < dateA) return -1;
-
-      return b.id_registro - a.id_registro;
-    });
-  };
+  
 
   useEffect(() => {
 
+    // Aqui busca os dados do usuário e seta no state
     fetch(`http://localhost:3005/api/conta/buscar/${id}`)
       .then((res) => {
 
@@ -37,10 +27,10 @@ export default function Home() {
       })
       .then((resp) => {
         setDadosUsuario(resp);
-        console.log(resp)
       }
       )
 
+    // Aqui busca os registros e seta no state já ordenado por data
     fetch(`http://localhost:3005/api/registro/${id}`)
       .then(
         (resposta) => {
@@ -51,36 +41,34 @@ export default function Home() {
       .then(
         (res) => {
           setRespostaAPI(res);
-          const sorted = ordenarRegistros(res);
-          setRegistrosOrdenados(sorted);
         }
       )
       .catch(err => console.log(err))
 
     console.log(statusAPI)
-  }, [reloadAPI, id])
+  }, [reloadAPI, id, statusAPI])
   return (
     <>
       {statusAPI === 404 && <ApiErrorMsg status={statusAPI} />}
       <Header />
       <div className={`mt-4 ${styles.upperBody}`}>
 
-        <div className={`col-11 col-md-5 row m-3 mx-auto ${styles.mainValues} `}>
-          <div className={`card mb-2 text-center ${styles.primaryValue}`}>
+        <div className={`col-11 col-lg-4 row mx-auto mt-3 gap-2 ${styles.mainValues} `}>
+          <div className={`card text-center ${styles.primaryValue}`}>
             <div className="card-body">
               <h4 className="card-title">Saldo total</h4>
               <p className="card-text">R$ {dadosUsuario.saldo}</p>
             </div>
           </div>
 
-          <div className={`card ${styles.secundaryValue}`}>
+          <div className={`card col  text-center ${styles.secundaryValue}`}>
             <div className="card-body">
               <h4 className="card-title">Entradas</h4>
               <p className="card-text">R$ {dadosUsuario.renda}</p>
             </div>
           </div>
 
-          <div className={`card ${styles.secundaryValue}`}>
+          <div className={`card col text-center ${styles.secundaryValue}`}>
             <div className="card-body">
               <h4 className="card-title">Saídas</h4>
               <p className="card-text">R$ {dadosUsuario.gasto}</p>
@@ -93,24 +81,7 @@ export default function Home() {
         <GraficoMeta respostaAPI={respostaAPI} />
       </div>
 
-      <div className={` ${styles.registros_container}`}>
-        <div className='d-flex justify-content-between'>
-          <h2 className='p-4'>Registros</h2>
-          <div class="dropdown">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Filtrar
-            </button>
-            <ul class="dropdown-menu">
-            </ul>
-          </div>
-        </div>
-        <div className={`d-flex ${styles.registros}`}>
-          {(registrosOrdenados.length !== 0) && registrosOrdenados.map((operacao, index) => (new Date(operacao.data).getTime() <= new Date().getTime()) ?
-            <HistoryCard key={index} operacao={operacao} /> :
-            false)}
-          {console.log(registrosOrdenados)}
-        </div>
-      </div>
+      <ListagemRegistros respostaAPI={respostaAPI} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}/>
     </>
   );
 }

@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import styles from './FormRegistro.module.css'
-import { Col, Form, Modal, Row } from "react-bootstrap";
 import Input from '../input/Input';
 
 export default function FormRegistro(props) {
     const [recorrencia, setRecorrencia] = useState('unica');
     const [selectedCategoria, setSelectedCategoria] = useState('');
     const [tipoOperacao, setTipoOperacao] = useState('');
-    const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"]
 
     const categorias_e_subs = {
         'Alimentação': ['Supermercado', 'Restaurantes', 'Lanches', 'Bebidas', 'Delivery', 'Padaria', 'Outros'],
