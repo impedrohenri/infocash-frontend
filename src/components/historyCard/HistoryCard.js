@@ -17,7 +17,7 @@ export default function HistoryCard({ operacao, reloadAPI, setReloadAPI }) {
                     </div>
 
 
-                    {operacao.processado === false && (<div className={`${styles.card_menu}`}>
+                    <div className={`${styles.card_menu}`}>
                         <div className={`${styles.menu_icon}`}>
                             <img src='img/icons/card_menu.png' height={30} alt=''/>
                         </div>
@@ -26,14 +26,14 @@ export default function HistoryCard({ operacao, reloadAPI, setReloadAPI }) {
                             <ul className="list-group list-group-flush">
                                 {/* BOT */}
                                 <li className="list-group-item p-0">
-                                    <CardModal src='/img/icons/card_edit.png' text='Editar' id={operacao.id_registro} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}/>
+                                    {operacao.processado === false && (<CardModal src='/img/icons/card_edit.png' text='Editar' id={operacao.id_registro} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}/>)}
                                 </li>
                                 <li className="list-group-item p-0">
                                     <CardModal src='/img/icons/card_delete.png' text='Deletar' id={operacao.id_registro} reloadAPI={reloadAPI} setReloadAPI={setReloadAPI}/>
                                 </li>
                             </ul>
                         </div>
-                    </div>)}
+                    </div>
 
                 </div>
                 <div className={`${styles.card_body}`}>

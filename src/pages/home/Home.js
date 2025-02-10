@@ -33,7 +33,7 @@ export default function Home() {
       )
 
     // Aqui busca os registros e seta no state já ordenado por data
-    fetch(`http://localhost:3005/api/registro/${id}7`)
+    fetch(`http://localhost:3005/api/registro/${id}`)
       .then(
         (resposta) => {
           if(resposta.status === 404){
