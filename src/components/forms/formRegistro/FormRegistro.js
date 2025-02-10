@@ -88,8 +88,8 @@ export default function FormRegistro(props) {
 
                     {recorrencia === 'sim' && (
                         <div className={`${styles.periodos_container}`}>
-                            {["Semanal", "Mensal", "Anual"].map(periodo => (
-                                <label className={`${styles.periodos}`} htmlFor={periodo}>
+                            {["Semanal", "Mensal", "Anual"].map((periodo, index) => (
+                                <label key={index} className={`${styles.periodos}`} htmlFor={periodo}>
                                     <input type="radio" name="periodoRecorrencia" id={periodo} value={periodo} required /> {periodo}
                                 </label>
                             ))}

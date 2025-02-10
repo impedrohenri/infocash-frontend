@@ -38,7 +38,7 @@ export default function RecuperarSenha() {
 
                     <div className='d-flex justify-content-between'>
                         <Link to='/'><div className='btn btn-outline-secondary mt-4'>Cancelar</div></Link>
-                        <SubmitButton value='Enviar'/>
+                        <SubmitButton value='Enviar' className='mt-4'/>
                     </div>
                 </form>
             </div>

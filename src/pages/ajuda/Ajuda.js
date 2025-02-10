@@ -9,7 +9,7 @@ export default function Ajuda(props) {
                 <h1 className='fs-1 mb-4 pb-4'>Guia do usuário</h1>
                 <h2 className='m-4'>Página Principal</h2>
                 
-                <div className='card col-12 col-sm-10 col-md-6 justify-self-center mx-auto p-4 mb-4'><img src='../../img/telas/TelaPrincipal.png' alt='' className={`${styles.image}`} />
+                <div className='card col-12 col-sm-11 col-md-10 col-lg-7  justify-self-center mx-auto p-4 mb-4'><img src='../../img/telas/TelaPrincipal.png' alt='' className={`${styles.image}`} />
                     <ul className='m-4 gap-4'>
                         <li><strong>Saldo total:</strong> Exibe o valor consolidado de todas as receitas menos todas as despesas registradas, indicando o total disponível ou devido.
                         </li><br/>

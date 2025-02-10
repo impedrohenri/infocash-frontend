@@ -48,7 +48,6 @@ export const AuthProvider = ({ children }) => {
 
 
     const signOut = (e) => {
-        e.preventDefault()
         localStorage.clear()
         setUser(null);
         window.location.href="http://localhost:3000/"

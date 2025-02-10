@@ -79,7 +79,7 @@ export default function CadastroForm(props) {
                     <Input name='confirmar' type='password' id='confirmarCadastro' label='Confirmar senha' placeholder="Confirme a senha" invalidText={invalidText.confirmar} onChange={() => resetStyles('confirmarCadastro')}/>
 
                     <div className='d-flex justify-content-between'>
-                    <SubmitButton value='Cadastrar'/>
+                    <SubmitButton value='Cadastrar' className='mt-4'/>
                         
                         <input type='reset' className='btn btn-outline-secondary mt-4 ' value='Limpar'/>
                     </div>

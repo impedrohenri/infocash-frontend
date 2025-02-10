@@ -22,7 +22,6 @@ export default function Home() {
     // Aqui busca os dados do usuário e seta no state
     fetch(`http://localhost:3005/api/conta/buscar/${id}`)
       .then((res) => {
-
         return res.json()
       })
       .then((resp) => {
@@ -45,7 +44,6 @@ export default function Home() {
       )
       .catch(err => console.log(err))
 
-    console.log(statusAPI)
   }, [reloadAPI, id, statusAPI])
   return (
     <>

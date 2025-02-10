@@ -44,11 +44,14 @@ export default function Login() {
 
         await signIn(data)
         
-        if(!signed){
-            erros.senha = InputMsgErro('senhaLogin', true, 'Email ou senha Inválidos');
-            setInvalidText(erros);
-            return
-        }
+        setTimeout(() => {
+            if(!signed){
+                erros.senha = InputMsgErro('senhaLogin', true, 'Email ou senha Inválidos');
+                setInvalidText(erros);
+                return
+            }
+        }, 1000)
+        
 
     }
 

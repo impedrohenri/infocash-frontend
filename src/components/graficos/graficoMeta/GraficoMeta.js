@@ -57,7 +57,7 @@ export default function GraficoMeta(props) {
             backgroundColor: [
               'rgb(150, 150, 150)',
               'rgb(66, 133, 244)',
-              'rgb(219, 68, 55)',
+              'rgb(59, 68, 55)',
               'rgb(244, 180, 0)',
               'rgb(15, 157, 88)',
               'rgb(171, 71, 188)',

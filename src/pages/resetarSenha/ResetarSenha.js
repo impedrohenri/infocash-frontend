@@ -74,7 +74,7 @@ export default function ResetarSenha() {
                         <Input name='senhaNova' id='senhaNova' type='password' label='Nova senha' invalidText={invalidText.senhaNova}
                                     onChange={() => resetStyles('senhaNova')}/>
                         <Input name='confirmar' id='confirmar' type='password' label='Nova senha' invalidText={invalidText.confirmar} onChange={() => resetStyles('confirmar')}/>
-                        <SubmitButton value='Confirmar' />
+                        <SubmitButton value='Confirmar' className='mt-4'/>
                     </form>
                 </div>
             </div>

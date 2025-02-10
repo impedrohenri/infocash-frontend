@@ -9,7 +9,7 @@ export default function ListagemRegistros({ respostaAPI, setReloadAPI, reloadAPI
 
     // Função para aplicar o filtro
     const aplicarFiltro = (registros, filtro) => {
-        const hoje = new Date(); // Data atual para comparação
+        const hoje = new Date() - 3 * 60 * 60 * 1000; // Data atual para comparação
 
         switch (filtro) {
             case 'futuro':

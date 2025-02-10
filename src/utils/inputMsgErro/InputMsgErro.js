@@ -1,25 +1,27 @@
-export default function InputMsgErro(id, erro, msg) {
-
+export default function InputMsgErro(id, erro, msg) { 
     const input = document.getElementById(id);
-    if (input) {
-        if (erro === true) {
-            input.style.border = '1px solid red';
-            input.style.outline = '3px solid rgba(255, 0, 0, 0.3)';
-            input.focus()
-            return msg
-        } else if (erro === 'sucesso') {
-            input.style.border = '1px solid green';
-            input.style.outline = '3px solid rgba(0, 255, 0, 0.3)';
+    if (!input) return;  // Garante que o elemento existe antes de tentar modificar
 
-            setTimeout(() => {
-                input.style.border = '';
-                input.style.outline = '';
-            }, 4000); 
-            return msg
-        }
-    } else {
-        input.style.border = '';
-        input.style.outline = '';
+    if (erro === true) {
+        input.style?.setProperty('border', '1px solid red');
+        input.style?.setProperty('outline', '3px solid rgba(255, 0, 0, 0.3)');
+        input.focus();
+        return msg;
+    } 
+    
+    if (erro === 'sucesso') {
+        input.style?.setProperty('border', '1px solid green');
+        input.style?.setProperty('outline', '3px solid rgba(0, 255, 0, 0.3)');
+
+        setTimeout(() => {
+            input.style?.removeProperty('border');
+            input.style?.removeProperty('outline');
+        }, 4000);
+        
+        return msg;
     }
 
+    // Se erro for falso ou outro valor, limpa os estilos
+    input.style?.removeProperty('border');
+    input.style?.removeProperty('outline');
 }
