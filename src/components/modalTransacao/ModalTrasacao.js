@@ -1,11 +1,9 @@
 import { Button, Modal } from 'react-bootstrap';
-
 import FormRegistro from '../forms/formRegistro/FormRegistro';
-
 import styles from './ModalTrasacao.module.css'
 import { useState } from 'react';
 import SubmitButton from '../forms/submitButton/SubmitButton';
-
+import API from '../../routes/api';
 
 
 export default function ModalTrasacao({ setReloadAPI, reloadAPI }) {
@@ -23,7 +21,7 @@ export default function ModalTrasacao({ setReloadAPI, reloadAPI }) {
 		const formData = new FormData(formulario)
 		const data = Object.fromEntries(formData)
 
-		fetch(`http://localhost:3005/api/registro/${id}`, {
+		fetch(API + `/registro/${id}`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

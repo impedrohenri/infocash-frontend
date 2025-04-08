@@ -65,7 +65,7 @@ export default function ListagemRegistros({statusAPI, respostaAPI, setReloadAPI,
                 </Dropdown>
             </div>
             <div className={`d-flex ${styles.registros}`}>
-                {((respostaAPI.length !== 0)) ?
+                {((respostaAPI === false) || (statusAPI !== 404)) ?
                     registrosFiltrados.map((operacao) => (
                         <HistoryCard
                             key={operacao.id_registro}

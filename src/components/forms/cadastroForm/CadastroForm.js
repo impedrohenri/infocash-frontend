@@ -3,6 +3,7 @@ import Input from '../input/Input'
 import SubmitButton from '../submitButton/SubmitButton'
 import { useState } from 'react';
 import { InputMsgErro } from '../../../utils';
+import API from '../../../routes/api';
 
 export default function CadastroForm(props) {
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ export default function CadastroForm(props) {
         }
 
 
-		fetch('http://localhost:3005/api/usuario/cadastrar', {
+		fetch(API + '/usuario/cadastrar', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

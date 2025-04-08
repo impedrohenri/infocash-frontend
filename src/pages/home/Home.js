@@ -5,6 +5,7 @@ import GraficoMeta from '../../components/graficos/graficoMeta/GraficoMeta';
 import ModalTrasacao from '../../components/modalTransacao/ModalTrasacao';
 import ApiErrorMsg from '../../components/apiErrorMsg/ApiErrorMsg';
 import ListagemRegistros from '../../components/listagemRegistros/ListagemRegistros';
+import API from '../../routes/api';
 
 export default function Home() {
 
@@ -20,7 +21,7 @@ export default function Home() {
   useEffect(() => {
 
     // Aqui busca os dados do usuário e seta no state
-    fetch(`http://localhost:3005/api/conta/buscar/${id}`)
+    fetch(API + `/conta/buscar/${id}`)
       .then((resposta) => {
         if(resposta.status === 404){
           setStatusAPI(resposta.status)
@@ -33,7 +34,7 @@ export default function Home() {
       )
 
     // Aqui busca os registros e seta no state já ordenado por data
-    fetch(`http://localhost:3005/api/registro/${id}`)
+    fetch(API +  `/registro/${id}`)
       .then(
         (resposta) => {
           if(resposta.status === 404){

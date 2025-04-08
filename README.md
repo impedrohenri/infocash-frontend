@@ -2,6 +2,8 @@
 
 O projeto **Infocash** é uma aplicação web desenvolvida para auxiliar os usuários no gerenciamento de suas finanças, promovendo maior controle e organização financeira. Através da aplicação, é possível registrar entradas e saídas de dinheiro, visualizar relatórios e obter insights sobre hábitos de consumo.
 
+- **Back-end**: Pode ser encontrado em [github.com/8VINO](https://github.com/8VINO/back-end-incrementado)
+
 ## Funcionalidades
 
 - **Cadastro de Salários**: Registro das fontes de renda mensal.
@@ -11,9 +13,8 @@ O projeto **Infocash** é uma aplicação web desenvolvida para auxiliar os usu�
 
 ## Tecnologias Utilizadas
 
-- **Front-end**: React
-- **Back-end**:
-- **Banco de Dados**:
+- **Front-end**: React, Bootstrap, Chartjs, React Bootstrap.
+
 
 ## Instruções para Configuração e Execução
 
@@ -64,8 +65,5 @@ Contribuições para este projeto são sempre bem-vindas. Caso deseje colaborar,
 5. Abra um **Pull Request** explicando as mudanças realizadas.
 
 
-
-## Créditos
-
-**Desenvolvedores**: [Pedro Henrique](https://linktr.ee/impedrohenri), Vinicius Batista e Luiz Felipe
+**Desenvolvido por**: [impedrohenri](https://linktr.ee/impedrohenri)
 

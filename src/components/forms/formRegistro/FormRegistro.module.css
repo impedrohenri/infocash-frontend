@@ -79,8 +79,13 @@ input[type=radio] {
 }
 
 .periodos_container {
+    display: none;
     margin-top: 20px;
 }
+.divRadios:has(input[id='recorrente_id']:checked) .periodos_container{
+    display: block;
+}
+
 
 .periodos {
     display: flex;

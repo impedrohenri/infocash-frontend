@@ -1,9 +1,8 @@
 import styles from './GraficoMeta.module.css';
 import Chart from 'chart.js/auto';
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import Popover from '../../popover/Popover';
-import { AuthContext } from '../../../contexts/AuthContext';
-
+import API from '../../../routes/api';
 
 
 export default function GraficoMeta(props) {
@@ -14,7 +13,7 @@ export default function GraficoMeta(props) {
 
 
   useEffect(() => {
-    fetch(`http://localhost:3005/api/conta/meta/${id}`)
+    fetch(API + `/conta/meta/${id}`)
     .then((res) => {
         return res.json();
     })
@@ -73,7 +72,7 @@ export default function GraficoMeta(props) {
             backgroundColor: [
               'rgb(150, 150, 150)', // Cor para "Limite Restante"
               'rgb(66, 133, 244)',
-              'rgb(219, 68, 55)',
+              'rgb(0, 255, 128)',
               'rgb(244, 180, 0)',
               'rgb(15, 157, 88)',
               'rgb(171, 71, 188)',
@@ -196,7 +195,7 @@ export default function GraficoMeta(props) {
         <div className={`col-12 col-md-5 ${styles.limit_container}`}>
           <div className={`${styles.limite_mensal}`}>
             <span>Limite restante: </span>
-            <span>R$ {limiteRestante}</span>
+            <span>R$ {parseFloat(limiteRestante).toFixed(2)}</span>
           </div>
           <canvas id="progressBar" className={`${styles.progressBar}`}></canvas>
         </div>

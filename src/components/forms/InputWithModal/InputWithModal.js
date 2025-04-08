@@ -3,6 +3,7 @@ import Input from "../input/Input";
 import SubmitButton from "../submitButton/SubmitButton";
 import { useRef, useState } from 'react';
 import { InputMsgErro } from '../../../utils';
+import API from '../../../routes/api';
 
 export default function InputWithModal({ setReload, reload, name, id, ...props }) {
     const id_usuario = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"];
@@ -37,7 +38,7 @@ export default function InputWithModal({ setReload, reload, name, id, ...props }
         data[name] = novoValor;
 
         // Envia a requisição
-        fetch(`http://localhost:3005/api/usuario/${id_usuario}`, {
+        fetch(API + `/usuario/${id_usuario}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import SubmitButton from "../../components/forms/submitButton/SubmitButton";
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { InputMsgErro } from '../../utils';
+import API from '../../routes/api';
 
 export default function ResetarSenha() {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ export default function ResetarSenha() {
             return
         }
 
-        fetch(`http://localhost:3005/api/usuario/resetar-senha/${token}`, {
+        fetch(API + `/usuario/resetar-senha/${token}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

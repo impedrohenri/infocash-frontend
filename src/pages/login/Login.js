@@ -36,21 +36,16 @@ export default function Login() {
             erros.senha = InputMsgErro('senhaLogin', true, 'Digite uma senha')
             setInvalidText(erros)
             return
-        } else if (data.senha.length < 8) {
-            erros.senha = InputMsgErro('senhaLogin', true, 'A senha deve conter no mínimo 8 caracteres');
+        }
+
+        const logado = await signIn(data);
+        console.log(logado)
+        
+        if(!logado){
+            erros.senha = InputMsgErro('senhaLogin', true, 'Email ou senha Inválidos');
             setInvalidText(erros);
             return
         }
-
-        await signIn(data)
-        
-        setTimeout(() => {
-            if(!signed){
-                erros.senha = InputMsgErro('senhaLogin', true, 'Email ou senha Inválidos');
-                setInvalidText(erros);
-                return
-            }
-        }, 1000)
         
 
     }
@@ -59,12 +54,13 @@ export default function Login() {
         navigate('/home');
     }
 
+    if (!signed){
     return (
         <main className={`${styles.main}`}>
             <div className={`d-flex flex-column align-items-center justify-content-center ${styles.body}`}>
                 <div className='d-flex align-items-center justify-content-center'>
-                    <img src='../../img/infocash-brand/png/infocash-logo-black.png' alt="Logo" height="70" className={`me-4 my-4 LOGO`} />
-                    <img src='../../img/infocash-brand/png/infocash-name-black.png' alt="Logo" height="30" className='my-auto' />
+                    <img src='../../img/infocash-brand/svg/infocash-logo-white.svg' alt="Logo" height="70" className={`me-4 my-4 LOGO`} />
+                    <img src='../../img/infocash-brand/svg/infocash-name-white.svg' alt="Logo" height="30" className='my-auto' />
                 </div>
                 <div className={styles.blurredBackground}></div>
 
@@ -78,7 +74,7 @@ export default function Login() {
 
                         <Link to='/recuperar-senha'><span>Esqueceu a senha?</span></Link>
                         <div className='d-flex justify-content-center'>
-                            <SubmitButton className='px-4' value='Entrar' />
+                            <SubmitButton className='px-4 mt-4' value='Entrar' />
                         </div>
 
                     </form>
@@ -89,5 +85,5 @@ export default function Login() {
             </div>
         </main>
     )
-
+}
 }

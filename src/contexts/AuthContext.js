@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { useEffect, useState } from "react";
-
+import API from "../routes/api";
 
 
 export const AuthContext = createContext();
@@ -20,30 +20,30 @@ export const AuthProvider = ({ children }) => {
         loadingStoreData();
     }, []);
 
-    const signIn = (data) => {
-        fetch("http://localhost:3005/api/usuario/login", {
+    const signIn = async (data) => {
+        const response = await fetch(API + "/usuario/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        })
-        .then((response) => {
-            if (response.status === 401) {
-                return false
-            }
-            return response.json();
-        })
-        .then((data) => {
-            if (data.error) {
-                alert(data.error);
-            } else {
-                setUser(data);
-                localStorage.setItem("@Auth:user", JSON.stringify(data));
-                localStorage.setItem("@Auth:token", data.token);
-                return true
-            }
-        })
+        });
+
+        if (response.status === 401) {
+            return false;
+        }
+
+        const responseData = await response.json();
+
+        if (responseData.error) {
+            alert(responseData.error);
+            return false;
+        } else {
+            setUser(responseData);
+            localStorage.setItem("@Auth:user", JSON.stringify(responseData));
+            localStorage.setItem("@Auth:token", responseData.token);
+            return true;
+        }
     };
 
 

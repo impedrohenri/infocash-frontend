@@ -1,9 +1,9 @@
 import styles from './Popover.module.css'
-
 import { useState, useRef, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
+import API from '../../routes/api';
 
 export default function Popover({setLimiteMensal}) {
     
@@ -45,7 +45,7 @@ export default function Popover({setLimiteMensal}) {
         const data = Object.fromEntries(formData)
         console.log(data)
 
-        fetch(`http://localhost:3005/api/conta/meta/${id["id_usuario"]}`, {
+        fetch(API + `/conta/meta/${id["id_usuario"]}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ export default function Popover({setLimiteMensal}) {
     return (
         <>
             <Button ref={target} className={`${styles.botao}`} onClick={() => setShow(!show)}>
-                <img src='../../img/infocash-brand/png/infocash-coin-black.png' alt='' />
+                <img src='../../img/infocash-brand/svg/infocash-logo-black.svg' alt='' />
             </Button>
             <Overlay target={target.current} show={show} placement="left" ref={overlayRef}>
                 {(props) => (

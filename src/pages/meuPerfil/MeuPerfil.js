@@ -8,6 +8,7 @@ import Input from '../../components/forms/input/Input';
 import InputWithModal from '../../components/forms/InputWithModal/InputWithModal';
 import { InputMsgErro } from '../../utils';
 import { Button } from 'react-bootstrap';
+import API from '../../routes/api';
 
 export default function MeuPerfil() {
     const id = JSON.parse(localStorage.getItem('@Auth:user'))["id_usuario"];
@@ -27,7 +28,7 @@ export default function MeuPerfil() {
 
     useEffect(() => {
         const fetchDadosUsuario = async () => {
-            fetch(`http://localhost:3005/api/usuario/${id}`)
+            fetch(API + `/usuario/${id}`)
                 .then((res) => res.json())
                 .then((resp) => setDadosUsuario(resp));
         };
@@ -74,7 +75,7 @@ export default function MeuPerfil() {
         }
 
 
-        fetch(`http://localhost:3005/api/usuario/${id}`, {
+        fetch(API + `/usuario/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -100,7 +101,6 @@ export default function MeuPerfil() {
 
     const handleDelete = (event) => {
         event.preventDefault()
-        console.log('chegou')
         const senha = event.target.deletarSenha.value;
         const data = {}
         data.id_usuario = id
@@ -113,7 +113,7 @@ export default function MeuPerfil() {
             return;
         }
 
-        fetch(`http://localhost:3005/api/usuario/${id}`, {
+        fetch(API + `/usuario/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -121,8 +121,8 @@ export default function MeuPerfil() {
             body: JSON.stringify(data),
         }).then((resp) => {
             if (resp.status === 200) {
-                console.log(resp.status)
                 erros.deletarSenha = InputMsgErro('deletarSenha', 'sucesso', 'Sua conta foi deletada. Você será redirecionado!');
+
                 setInvalidText(erros)
                 setTimeout(() => {
                     handleCloseDeletarModal()

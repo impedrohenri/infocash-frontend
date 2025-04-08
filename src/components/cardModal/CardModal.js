@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import SubmitButton from '../forms/submitButton/SubmitButton';
 import FormRegistro from '../forms/formRegistro/FormRegistro';
+import API from '../../routes/api';
 
 export default function CardModal({setReloadAPI, reloadAPI, ...props}) {
     const id_registro = props.id
@@ -21,7 +22,7 @@ export default function CardModal({setReloadAPI, reloadAPI, ...props}) {
  		    const data = Object.fromEntries(formData)
 
 
-            fetch(`http://localhost:3005/api/registro/${id}`, {
+            fetch(API + `/registro/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ export default function CardModal({setReloadAPI, reloadAPI, ...props}) {
     const DeleteBody = ({ id }) => {
 
         const handleDelete = () => {
-            fetch(`http://localhost:3005/api/registro/${id}`, {
+            fetch(API + `/registro/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

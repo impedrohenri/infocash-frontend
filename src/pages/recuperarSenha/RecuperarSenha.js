@@ -3,6 +3,7 @@ import styles from './RecuperarSenha.module.css'
 import SubmitButton from '../../components/forms/submitButton/SubmitButton';
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
+import API from '../../routes/api';
 
 export default function RecuperarSenha() {
     const [show, setShow] = useState(false);
@@ -16,7 +17,7 @@ export default function RecuperarSenha() {
 		const data = Object.fromEntries(formData)
 		console.log(data)
 
-		fetch(`http://localhost:3005/api/usuario/esquecer-senha`, {
+		fetch(API + `/usuario/esquecer-senha`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
